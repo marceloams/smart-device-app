@@ -7,7 +7,7 @@ class PresenceSensor implements DeviceData{
   String id;
 
   @override
-  String mode;
+  int mode;
 
   @override
   String name;
@@ -16,7 +16,9 @@ class PresenceSensor implements DeviceData{
   MeasureData measure = PresenceMeasure();
 
   @override
-  void setFromMap(Map<String, dynamic> m) {
-
+  void setFromMap(Map<dynamic, dynamic> m) {
+    id = m['id'];
+    name = m['name'];
+    mode = m['mode'];
   }
 }

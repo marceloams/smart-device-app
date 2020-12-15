@@ -3,7 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 class DatabaseController {
   final databaseReference = FirebaseDatabase.instance.reference();
 
-  Map<dynamic, dynamic> m;
+  Map<dynamic, dynamic> data;
 
   void createData(String id, Map<String, dynamic> map){
     databaseReference.child(id).set({
@@ -11,10 +11,9 @@ class DatabaseController {
     });
   }
 
-  void readData(){
-    databaseReference.once().then((DataSnapshot snapshot) {
-      m = snapshot.value;
-      print(m);
+  Future<Null> readData() async {
+    await databaseReference.once().then((DataSnapshot snapshot) {
+      data = snapshot.value;
     });
   }
 

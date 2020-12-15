@@ -1,8 +1,8 @@
 import 'package:realtimedatabase_teste/model/device_data.dart';
 import 'package:realtimedatabase_teste/model/measure_data.dart';
-import 'package:realtimedatabase_teste/model/temperature_humidity_measure.dart';
+import 'package:realtimedatabase_teste/model/presence_measure.dart';
 
-class Dht11Sensor implements DeviceData {
+class PresenceSensor implements DeviceData{
   @override
   String id;
 
@@ -13,6 +13,5 @@ class Dht11Sensor implements DeviceData {
   String name;
 
   @override
-  MeasureData measure = TemperatureHumidityMeasure();
-  
+  MeasureData measure = PresenceMeasure();
 }

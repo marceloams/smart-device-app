@@ -5,15 +5,20 @@ class TemperatureHumidityMeasure implements MeasureData{
   String date;
 
   @override
-  List<dynamic> measures;
+  List<dynamic> measures = List(2);
 
   @override
   String time;
 
   @override
-  Map<String, dynamic> setMeasureFromMap() {
+  List<String> measuresImages = [
+    'assets/images/humidity_icon.png',
+    'assets/images/thermometer_icon.png'
+  ];
+
+  @override
+  void setMeasureFromMap(Map map) {
     // TODO: implement setMeasureFromMap
-    throw UnimplementedError();
   }
 
   @override

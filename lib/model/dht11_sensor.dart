@@ -20,5 +20,7 @@ class Dht11Sensor implements DeviceData {
     id = m['id'];
     name = m['name'];
     mode = m['mode'];
+
+    measure.setMeasureFromMap(m['measures']);
   }
 }

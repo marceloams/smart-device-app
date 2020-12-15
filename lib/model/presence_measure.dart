@@ -5,15 +5,19 @@ class PresenceMeasure implements MeasureData{
   String date;
 
   @override
-  List measures;
+  List measures = List(1);
 
   @override
   String time;
 
   @override
-  Map<String, dynamic> setMeasureFromMap() {
+  List<String> measuresImages = [
+    "assets/images/radar_icon.png"
+  ];
+
+  @override
+  void setMeasureFromMap(Map map) {
     // TODO: implement setMeasureFromMap
-    throw UnimplementedError();
   }
 
   @override

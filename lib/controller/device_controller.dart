@@ -26,6 +26,8 @@ class DeviceController {
         print(devices);
     }
 
+
+
     void _addDevice(Map<dynamic,dynamic> data){
 
         DeviceData device;

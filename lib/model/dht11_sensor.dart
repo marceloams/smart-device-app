@@ -13,7 +13,7 @@ class Dht11Sensor implements DeviceData {
   String name;
 
   @override
-  MeasureData measure = TemperatureHumidityMeasure();
+  List<MeasureData> measures = List();
 
   @override
   void setFromMap(Map<dynamic, dynamic> m) {
@@ -21,6 +21,10 @@ class Dht11Sensor implements DeviceData {
     name = m['name'];
     mode = m['mode'];
 
-    measure.setMeasureFromMap(m['measures']);
+    m['measures'].forEach((key, value) {
+      TemperatureHumidityMeasure temperatureHumidityMeasure = TemperatureHumidityMeasure();
+      temperatureHumidityMeasure.setMeasureFromMap(value);
+      measures.add(temperatureHumidityMeasure);
+    });
   }
 }

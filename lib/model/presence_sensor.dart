@@ -13,12 +13,18 @@ class PresenceSensor implements DeviceData{
   String name;
 
   @override
-  MeasureData measure = PresenceMeasure();
+  List<MeasureData> measures = List();
 
   @override
   void setFromMap(Map<dynamic, dynamic> m) {
     id = m['id'];
     name = m['name'];
     mode = m['mode'];
+
+    m['measures'].forEach((key, value) {
+      PresenceMeasure presenceMeasure = PresenceMeasure();
+      presenceMeasure.setMeasureFromMap(value);
+      measures.add(presenceMeasure);
+    });
   }
 }

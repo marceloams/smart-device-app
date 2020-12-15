@@ -5,7 +5,7 @@ abstract class DeviceData {
   String name;
   int mode;
 
-  MeasureData measure;
+  List<MeasureData> measures;
 
   void setFromMap(Map<dynamic, dynamic> m);
 }

@@ -24,9 +24,16 @@ class DeviceController {
         });
 
         print(devices);
+        devices.forEach(
+            (element) {
+                element.measures[0].measures.forEach(
+                    (element) {
+                        print(element);
+                    }
+                );
+            }
+        );
     }
-
-
 
     void _addDevice(Map<dynamic,dynamic> data){
 

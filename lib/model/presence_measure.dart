@@ -11,13 +11,19 @@ class PresenceMeasure implements MeasureData{
   String time;
 
   @override
+  var dateParse;
+
+  @override
+  String dateTime;
+
+  @override
   List<String> measuresImages = [
     "assets/images/radar_icon.png"
   ];
 
   @override
   void setMeasureFromMap(Map map) {
-    // TODO: implement setMeasureFromMap
+    measures[0] = map['presence'];
   }
 
   @override

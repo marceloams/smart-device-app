@@ -90,13 +90,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                       height: 50.0,
                                       child: ListView.builder(
                                         shrinkWrap: true,
-                                        itemCount: DeviceController.devices[index].measure.measures.length,
+                                        itemCount: DeviceController.devices[index].measures[0].measures.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index2){
                                           return Row(
                                             children: [
                                               Image(
-                                                image: AssetImage(DeviceController.devices[index].measure.measuresImages[index2]),
+                                                image: AssetImage(DeviceController.devices[index].measures[0].measuresImages[index2]),
                                                 height: 50.0,
                                               ),
                                               Text(

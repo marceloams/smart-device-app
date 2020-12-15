@@ -3,7 +3,7 @@ abstract class MeasureData{
   String date;
   String time;
 
-  Map<String, dynamic> setMeasureFromMap(){}
+  Map<String, dynamic> setMeasureFromMap();
 
-  Map<String, dynamic> getMeasureMap(){}
+  Map<String, dynamic> getMeasureMap();
 }

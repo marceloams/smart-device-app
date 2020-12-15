@@ -14,4 +14,9 @@ class PresenceSensor implements DeviceData{
 
   @override
   MeasureData measure = PresenceMeasure();
+
+  @override
+  void setFromMap(Map<String, dynamic> m) {
+
+  }
 }

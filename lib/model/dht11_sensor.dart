@@ -14,5 +14,11 @@ class Dht11Sensor implements DeviceData {
 
   @override
   MeasureData measure = TemperatureHumidityMeasure();
-  
+
+  @override
+  void setFromMap(Map<String, dynamic> m) {
+    id = m['id'];
+    name = m['name'];
+    mode = m['mode'];
+  }
 }

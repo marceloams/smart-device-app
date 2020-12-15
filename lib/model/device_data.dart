@@ -7,5 +7,5 @@ abstract class DeviceData {
 
   MeasureData measure;
 
-  DeviceData(this.id, this.name, this.mode);
+  void setFromMap(Map<String, dynamic> m);
 }

@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "962265366924",
+    "firebase_url": "https://smarthome-be270-default-rtdb.firebaseio.com",
+    "project_id": "smarthome-be270",
+    "storage_bucket": "smarthome-be270.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962265366924:android:9e3df2626ebb241bd096a9",
+        "android_client_info": {
+          "package_name": "marceloams.br.realtimedatabase_teste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962265366924-t55m93346g1futnknn8ev1vfskunsgs0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUJ4onfKigQgRyQ0bokvubK0QZ0tDT6zA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962265366924-t55m93346g1futnknn8ev1vfskunsgs0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:962265366924:android:87a4a68f21a4b53ad096a9",
+        "android_client_info": {
+          "package_name": "marceloams.br.smart_home"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "962265366924-t55m93346g1futnknn8ev1vfskunsgs0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUJ4onfKigQgRyQ0bokvubK0QZ0tDT6zA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "962265366924-t55m93346g1futnknn8ev1vfskunsgs0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

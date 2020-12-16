@@ -9,11 +9,6 @@ class DeviceController {
 
     static List<DeviceData> devices = [];
 
-    List<DeviceData> deviceType = [
-        Dht11Sensor(),
-        PresenceSensor()
-    ];
-
     Future<Null> loadDevices() async{
 
         devices = [];
@@ -37,6 +32,11 @@ class DeviceController {
     }
 
     DeviceData _getDeviceType(int mode){
+        List<DeviceData> deviceType = [
+            Dht11Sensor(),
+            PresenceSensor()
+        ];
+
         return deviceType[mode];
     }
 }

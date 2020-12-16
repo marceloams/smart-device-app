@@ -9,8 +9,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //Controllers
   DeviceController deviceController = DeviceController();
 
+  //Function to load page
   void initState() {
     super.initState();
     WidgetsBinding.instance

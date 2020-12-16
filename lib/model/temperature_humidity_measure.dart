@@ -1,17 +1,12 @@
 import 'package:realtimedatabase_teste/model/measure_data.dart';
+import 'package:realtimedatabase_teste/model/timestamp.dart';
 
 class TemperatureHumidityMeasure implements MeasureData{
-  @override
-  String date;
-
   @override
   List<dynamic> measures = List(2);
 
   @override
-  String time;
-
-  @override
-  var dateParse;
+  Timestamp timestamp;
 
   @override
   List<String> measuresImages = [
@@ -23,6 +18,7 @@ class TemperatureHumidityMeasure implements MeasureData{
   void setMeasureFromMap(Map<dynamic, dynamic> map) {
     measures[0] = map['humidity'];
     measures[1] = map['temperature'];
+    timestamp = Timestamp(map['timestamp']);
   }
 
   @override
@@ -30,8 +26,8 @@ class TemperatureHumidityMeasure implements MeasureData{
     return {
       'temperature': measures[0],
       'humidity': measures[1],
-      'date': date,
-      'time': time
+      'date': timestamp.date,
+      'time': timestamp.time
     };
   }
 }

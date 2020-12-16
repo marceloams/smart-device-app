@@ -1,20 +1,12 @@
 import 'package:realtimedatabase_teste/model/measure_data.dart';
+import 'package:realtimedatabase_teste/model/timestamp.dart';
 
 class PresenceMeasure implements MeasureData{
-  @override
-  String date;
-
   @override
   List measures = List(1);
 
   @override
-  String time;
-
-  @override
-  var dateParse;
-
-  @override
-  String dateTime;
+  Timestamp timestamp;
 
   @override
   List<String> measuresImages = [
@@ -24,14 +16,15 @@ class PresenceMeasure implements MeasureData{
   @override
   void setMeasureFromMap(Map map) {
     measures[0] = map['presence'];
+    timestamp = Timestamp(map['timestamp']);
   }
 
   @override
   Map<String, dynamic> getMeasureMap() {
     return {
       'presence': measures[0],
-      'date': date,
-      'time': time
+      'date': timestamp.date,
+      'time': timestamp.time
     };
   }
 }

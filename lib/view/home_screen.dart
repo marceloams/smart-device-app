@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 
+import 'measures_tile.dart';
+
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -93,23 +95,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         itemCount: DeviceController.devices[index].measures[0].measures.length,
                                         scrollDirection: Axis.horizontal,
                                         itemBuilder: (context, index2){
-                                          return Row(
-                                            children: [
-                                              Image(
-                                                image: AssetImage(DeviceController.devices[index].measures[0].measuresImages[index2]),
-                                                height: 50.0,
-                                              ),
-                                              Text(
-                                                DeviceController.devices[index].measures[0].measures[index2].toString(),
-                                                style: TextStyle(
-                                                  fontSize: 25.0
-                                                ),
-                                              ),
-                                              Text(
-                                                DeviceController.devices[index].measures[0].units[index2]
-                                              )
-                                            ],
-                                          );
+                                          return MeasuresTile(DeviceController.devices[index].measures[0], index2);
                                         },
                                       ),
                                     )

@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
@@ -11,6 +12,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   DeviceController deviceController = DeviceController();
 
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => deviceController.loadDevices());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,14 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RaisedButton(
-                child: Text("Read data"),
-                onPressed: () async{
-                  setState((){
-                    deviceController.loadDevices().asStream();
-                  });
-                },
-              ),
               Expanded(
                 child: SizedBox(
                   height: 200.0,

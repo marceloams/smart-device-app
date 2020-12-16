@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:realtimedatabase_teste/model/measure_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/measure/measure_data.dart';
 
 class MeasuresTile extends StatelessWidget {
 

@@ -1,7 +1,7 @@
 import 'package:realtimedatabase_teste/controller/database_controller.dart';
-import 'package:realtimedatabase_teste/model/device_data.dart';
-import 'package:realtimedatabase_teste/model/dht11_sensor.dart';
-import 'package:realtimedatabase_teste/model/presence_sensor.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/presence_sensor.dart';
 
 class DeviceController {
 

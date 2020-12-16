@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realtimedatabase_teste/model/device_data.dart';
-import 'package:realtimedatabase_teste/view/measures_tile.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/tile/measures_tile.dart';
 
 class DevicesTile extends StatelessWidget {
 

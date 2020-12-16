@@ -1,6 +1,6 @@
-import 'package:realtimedatabase_teste/model/device_data.dart';
-import 'package:realtimedatabase_teste/model/measure_data.dart';
-import 'package:realtimedatabase_teste/model/presence_measure.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/measure/measure_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/measure/presence_measure.dart';
 
 class PresenceSensor implements DeviceData{
   @override

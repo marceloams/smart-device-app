@@ -1,8 +1,7 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
-import 'package:realtimedatabase_teste/view/devices_tile.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/tile/devices_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

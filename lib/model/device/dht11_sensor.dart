@@ -1,6 +1,6 @@
-import 'package:realtimedatabase_teste/model/device_data.dart';
-import 'package:realtimedatabase_teste/model/measure_data.dart';
-import 'package:realtimedatabase_teste/model/temperature_humidity_measure.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/measure/measure_data.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/measure/temperature_humidity_measure.dart';
 
 class Dht11Sensor implements DeviceData {
   @override

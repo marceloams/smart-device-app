@@ -94,7 +94,65 @@ class AddDeviceScreen extends StatelessWidget {
           title: Text("Add Device"),
           centerTitle: true,
         ),
-        body: Container(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            if(_formKey.currentState.validate() && _deviceEdited) {
+              //device map
+              Map<String, dynamic> deviceData;
+            }
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Theme.of(context).primaryColor,
+        ),
+        body: Form(
+          key: _formKey,
+          child: ListView(
+            padding: EdgeInsets.all(20.0),
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Device Name',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor
+                    ),
+                  ),
+                  SizedBox(height: 3.0),
+                  TextFormField( //full name text field
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      hintText: 'Put device name',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                            width: 1.3
+                        ),
+                      ),
+                    ),
+                    validator: (text){ //rule to validate the input data
+                      if(text.isEmpty) return 'Invalid Name!';
+                      else return null;
+                    },
+                    maxLength: 20,
+                    onChanged: (text){
+                      _deviceEdited = true;
+                    },
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

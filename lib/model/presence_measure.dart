@@ -3,7 +3,7 @@ import 'package:realtimedatabase_teste/model/timestamp.dart';
 
 class PresenceMeasure implements MeasureData{
   @override
-  List measures = List(1);
+  List measures = [1];
 
   @override
   Timestamp timestamp;

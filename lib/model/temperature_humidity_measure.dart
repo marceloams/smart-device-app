@@ -3,7 +3,7 @@ import 'package:realtimedatabase_teste/model/timestamp.dart';
 
 class TemperatureHumidityMeasure implements MeasureData{
   @override
-  List<dynamic> measures = List(2);
+  List<dynamic> measures = [0,1];
 
   @override
   Timestamp timestamp;

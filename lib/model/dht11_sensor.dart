@@ -13,7 +13,7 @@ class Dht11Sensor implements DeviceData {
   String name;
 
   @override
-  List<MeasureData> measures = List();
+  List<MeasureData> measures = [];
 
   @override
   void setFromMap(Map<dynamic, dynamic> m) {

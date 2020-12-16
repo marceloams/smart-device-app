@@ -7,7 +7,7 @@ class DeviceController {
 
     DatabaseController dbController = DatabaseController();
 
-    static List<DeviceData> devices = List();
+    static List<DeviceData> devices = [];
 
     List<DeviceData> deviceType = [
         Dht11Sensor(),

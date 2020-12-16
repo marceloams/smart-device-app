@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
@@ -17,11 +18,11 @@ class DeviceController {
 
         dbController.data.forEach((key, value) {
             print(value);
-            _addDevice(value);
+            _loadDevice(value);
         });
     }
 
-    void _addDevice(Map<dynamic,dynamic> data){
+    void _loadDevice(Map<dynamic,dynamic> data){
 
         DeviceData device;
 
@@ -38,5 +39,9 @@ class DeviceController {
         ];
 
         return deviceType[mode];
+    }
+
+    void addDevice(Map<String, dynamic> deviceData, VoidCallback onSuccess, VoidCallback onFail){
+
     }
 }

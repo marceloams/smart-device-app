@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-
+import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'home_screen.dart';
 
-class AddDeviceScreen extends StatelessWidget {
+class AddDeviceScreen extends StatefulWidget {
+  @override
+  _AddDeviceScreenState createState() => _AddDeviceScreenState();
+}
 
+class _AddDeviceScreenState extends State<AddDeviceScreen> {
   //global key to access the form at the sign up button
   final _formKey = GlobalKey<FormState>();
 
@@ -13,8 +17,33 @@ class AddDeviceScreen extends StatelessWidget {
   //controllers to get info from text fields
   final _nameController = TextEditingController();
 
+  //device controller
+  final DeviceController deviceController = DeviceController();
+
   //bool to see if the device has been edited
   bool _deviceEdited = false;
+
+  int _mode;
+  bool _selected = false;
+
+  List<DropdownMenuItem> dropDownMenuItems(){
+    List<DropdownMenuItem> items = [];
+    Map<String, int> information = {
+      'DHT11 Sensor': 0,
+      'Presence Sensor': 1
+    };
+
+    information.forEach((key, value) {
+      items.add(
+        DropdownMenuItem<int>(
+            value: value,
+            child: Text(key)
+        )
+      );
+    });
+
+    return items;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +128,14 @@ class AddDeviceScreen extends StatelessWidget {
             if(_formKey.currentState.validate() && _deviceEdited) {
               //device map
               Map<String, dynamic> deviceData;
+
+              deviceData = {
+                'name': _nameController,
+                'mode': _mode,
+              };
+
+              deviceController.addDevice(deviceData, _onSuccess, _onFail);
+
             }
           },
           child: Icon(Icons.add),
@@ -113,7 +150,7 @@ class AddDeviceScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Device Name',
+                    'Name',
                     style: TextStyle(
                         fontSize: 18.0,
                         fontWeight: FontWeight.bold,
@@ -147,7 +184,59 @@ class AddDeviceScreen extends StatelessWidget {
                     onChanged: (text){
                       _deviceEdited = true;
                     },
-                  )
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Type',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor
+                    ),
+                  ),
+                  SizedBox(height: 3.0),
+                  DropdownButtonFormField(
+                    dropdownColor: Color.fromARGB(255, 224, 224, 224),
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).primaryColor,
+                            width: 1.3
+                        ),
+                      ),
+                    ),
+                    elevation: 1,
+                    iconSize: 30.0,
+                    isExpanded: true,
+                    hint: new Text("Choose the device type"),
+                    value: _mode,
+                    isDense: true,
+                    validator: (value){ //rule to validate the input data
+                      if(value == null) return 'Invalid Type!';
+                      else return null;
+                    },
+                    onChanged: (value) {
+                      setState(() {
+                        _mode = value;
+                        _selected = true;
+                        _deviceEdited = true;
+                      });
+                      print("value: $_mode");
+                    },
+                    items: dropDownMenuItems()
+                  ),
                 ],
               )
             ],

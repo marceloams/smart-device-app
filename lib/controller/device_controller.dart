@@ -14,7 +14,9 @@ class DeviceController {
         PresenceSensor()
     ];
 
-    void loadDevices() async{
+    Future<Null> loadDevices() async{
+
+        devices = [];
 
         await dbController.readData();
 

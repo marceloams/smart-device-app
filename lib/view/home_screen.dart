@@ -24,9 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               RaisedButton(
                 child: Text("Read data"),
-                onPressed: (){
-                  setState(() {
-                    deviceController.loadDevices();
+                onPressed: () async{
+                  setState((){
+                    deviceController.loadDevices().asStream();
                   });
                 },
               ),
@@ -100,10 +100,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 height: 50.0,
                                               ),
                                               Text(
-                                                  '  10.0'
+                                                DeviceController.devices[index].measures[0].measures[index2].toString(),
+                                                style: TextStyle(
+                                                  fontSize: 25.0
+                                                ),
                                               ),
                                               Text(
-                                                  '°C'
+                                                DeviceController.devices[index].measures[0].units[index2]
                                               )
                                             ],
                                           );
@@ -123,7 +126,13 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-        )
+        ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add
+        ),
+        onPressed: (){},
+      ),
     );
   }
 }

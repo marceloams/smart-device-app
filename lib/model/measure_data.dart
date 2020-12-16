@@ -2,6 +2,7 @@ import 'package:realtimedatabase_teste/model/timestamp.dart';
 
 abstract class MeasureData{
   List<dynamic> measures;
+  List<String> units;
   List<String> measuresImages;
   Timestamp timestamp;
 

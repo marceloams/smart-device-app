@@ -6,6 +6,9 @@ class PresenceMeasure implements MeasureData{
   List measures = [1];
 
   @override
+  List<String> units = [' '];
+
+  @override
   Timestamp timestamp;
 
   @override

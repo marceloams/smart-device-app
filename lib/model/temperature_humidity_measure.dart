@@ -6,6 +6,9 @@ class TemperatureHumidityMeasure implements MeasureData{
   List<dynamic> measures = [0,1];
 
   @override
+  List<String> units = ['%', '°C'];
+
+  @override
   Timestamp timestamp;
 
   @override

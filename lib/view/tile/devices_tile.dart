@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/view/screen/device_log_screen.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/tile/measures_tile.dart';
 import 'package:realtimedatabase_teste/view/screen/device_settings_screen.dart';
@@ -42,7 +43,11 @@ class DevicesTile extends StatelessWidget {
                   Positioned(
                     child: IconButton(
                       icon: Icon(Icons.list_alt),
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context)=>DeviceLogScreen(deviceData))
+                        );
+                      },
                     ),
                     right: 35.0,
                   ),

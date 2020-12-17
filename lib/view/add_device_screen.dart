@@ -24,12 +24,11 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   bool _deviceEdited = false;
 
   int _mode;
-  bool _selected = false;
 
   List<DropdownMenuItem> dropDownMenuItems(){
     List<DropdownMenuItem> items = [];
     Map<String, int> information = {
-      'DHT11 Sensor': 0,
+      'Temperature Sensor': 0,
       'Presence Sensor': 1
     };
 
@@ -51,8 +50,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
     //function that executes when update is a success
     void _onSuccess(){
 
-      //snack bar with success information
-      _scaffoldKey.currentState.showSnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Success to add Device!'),
               backgroundColor: Theme.of(context).primaryColor,
@@ -65,6 +63,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
           Duration(seconds:2)
       ).then((_){
         Navigator.of(context).pop();
+        Navigator.of(context).pop();
         Navigator.of(context).push(
             MaterialPageRoute(builder: (context) => HomeScreen())
         );
@@ -73,8 +72,8 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
 
     //function that executes when update is a fail
     void _onFail(){
-      //snack bar with success information
-      _scaffoldKey.currentState.showSnackBar(
+      //snack bar with failure information
+      ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
               content: Text('Fail to add Device!'),
               backgroundColor: Colors.red,
@@ -230,7 +229,6 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                     onChanged: (value) {
                       setState(() {
                         _mode = value;
-                        _selected = true;
                         _deviceEdited = true;
                       });
                       print("value: $_mode");

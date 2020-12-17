@@ -23,6 +23,7 @@ class DeviceController {
 
     void _loadDevice(Map<dynamic,dynamic> data){
 
+        //if device is new and has no measure data
         if(!data.containsKey('measures')){
             Map<String, dynamic> measures = {
                 'measure-1': {

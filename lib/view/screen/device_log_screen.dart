@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
-import 'package:realtimedatabase_teste/model/measure/measure_data.dart';
 
 class DeviceLogScreen extends StatefulWidget {
 
@@ -25,9 +24,6 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
   //to get log columns
   List<String> logColumns = [];
 
-  //to get log rows
-  List<MeasureData> logRows = [];
-
   //device controller
   final DeviceController deviceController = DeviceController();
 
@@ -36,14 +32,14 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
     deviceName = deviceData.name;
 
     logColumns = deviceController.getDeviceTypeMeasures(deviceData.mode);
-    logColumns.addAll(['Date','Time']);
+    logColumns.addAll(['Time','Date']);
   }
 
   //global key to access the scaffold at onSuccess and onFail functions
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   //to create log columns
-  List<DataColumn> _getColumns(){
+  List<DataColumn> _getDataColumns(){
 
     List<DataColumn> columns = [];
 
@@ -64,7 +60,44 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
     return columns;
   }
 
+  //to create log rows
+  List<DataRow> _getDataRows(){
 
+    List<DataRow> rows = [];
+    List<DataCell> cells;
+
+    deviceData.measures.forEach((element) {
+
+      cells = [];
+
+      for(int i = 0; i<element.measures.length; i++){
+        cells.add(
+            DataCell(
+                Text(element.measures[i].toString() + element.units[i])
+            )
+        );
+      }
+
+      cells.add(
+          DataCell(
+              Text(element.timestamp.time)
+          )
+      );
+
+      cells.add(
+          DataCell(
+              Text(element.timestamp.time)
+          )
+      );
+
+      rows.add(
+        DataRow(cells: cells)
+      );
+
+    });
+
+    return rows;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +117,7 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
           padding: EdgeInsets.all(16.0),
           alignment: Alignment.center,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 deviceName,
@@ -94,30 +128,9 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
               ),
               SizedBox(height: 16.0),
               DataTable(
-                columns: _getColumns(),
-                rows: [],
+                columns: _getDataColumns(),
+                rows: _getDataRows(),
               ),
-              SizedBox(height: 16.0),
-              DataTable(
-                columns: [
-                  DataColumn(
-                      label: Text(
-                          'Date'
-                      )
-                  ),
-                  DataColumn(
-                      label: Text(
-                          'Time'
-                      )
-                  )
-                ],
-                rows: [
-                  DataRow(cells: [
-                    DataCell(Text('1')),
-                    DataCell(Text('Stephen'))
-                  ])
-                ],
-              )
             ],
           ),
         ),

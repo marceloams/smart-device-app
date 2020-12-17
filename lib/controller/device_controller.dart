@@ -76,4 +76,13 @@ class DeviceController {
 
         return types[type];
     }
+
+    void updateDevice(Map<String, dynamic> deviceData, String deviceId, VoidCallback onSuccess, VoidCallback onFail){
+        try{
+            dbController.updateData(deviceId, deviceData);
+            onSuccess();
+        }catch(e){
+            onFail();
+        }
+    }
 }

@@ -62,7 +62,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
 
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Success to add Device!'),
+              content: Text('Success to update Device!'),
               backgroundColor: Theme.of(context).primaryColor,
               duration: Duration(seconds: 2)
           )
@@ -142,7 +142,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                 'name': _nameController.text,
               };
 
-              deviceController.addDevice(deviceData, _onSuccess, _onFail);
+              deviceController.updateDevice(deviceData, _idController.text, _onSuccess, _onFail);
 
             }
           },

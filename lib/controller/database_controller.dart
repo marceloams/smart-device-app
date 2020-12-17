@@ -5,10 +5,11 @@ class DatabaseController {
 
   Map<dynamic, dynamic> data;
 
-  void createData(String id, Map<String, dynamic> map){
-    databaseReference.child(id).set({
-      map
-    });
+  void createData(String id, Map<String, dynamic> map) {
+
+    print(map);
+
+    databaseReference.child(id).set(map);
   }
 
   Future<Null> readData() async {

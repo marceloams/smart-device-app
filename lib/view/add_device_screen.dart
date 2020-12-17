@@ -130,7 +130,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
               Map<String, dynamic> deviceData;
 
               deviceData = {
-                'name': _nameController,
+                'name': _nameController.text,
                 'mode': _mode,
               };
 

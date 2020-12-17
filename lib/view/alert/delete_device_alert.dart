@@ -4,7 +4,7 @@ import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/view/screen/home_screen.dart';
 
-void DeleteDeviceAlert(BuildContext context, DeviceData deviceData){
+void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
 
   DeviceController deviceController = DeviceController();
 

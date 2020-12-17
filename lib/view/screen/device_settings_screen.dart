@@ -8,7 +8,7 @@ import 'home_screen.dart';
 class DeviceSettingsScreen extends StatefulWidget {
 
   //device data to get device info
-  DeviceData deviceData;
+  final DeviceData deviceData;
 
   //constructor to receive deiceData
   DeviceSettingsScreen(this.deviceData);
@@ -318,7 +318,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                         ),
                         color: Colors.red,
                         onPressed: (){
-                          DeleteDeviceAlert(context, deviceData);
+                          deleteDeviceAlert(context, deviceData);
                         }
                     ),
                   )

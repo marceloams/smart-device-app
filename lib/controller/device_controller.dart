@@ -77,6 +77,15 @@ class DeviceController {
         return types[type];
     }
 
+    List<String> getDeviceTypeMeasures(int type){
+        List<List<String>> types = [
+            ['Humidity', 'Temperature'],
+            ['Presence']
+        ];
+
+        return types[type];
+    }
+
     void updateDevice(Map<String, dynamic> deviceData, String deviceId, VoidCallback onSuccess, VoidCallback onFail){
         try{
             dbController.updateData(deviceId, deviceData);

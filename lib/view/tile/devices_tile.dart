@@ -69,17 +69,17 @@ class DevicesTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Flexible(
-                    child: SizedBox(
-                      height: 50.0,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: deviceData.measures[0].measures.length,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index){
-                          return MeasuresTile(deviceData.measures[0], index);
-                        },
-                      ),
-                    )
+                  child: SizedBox(
+                    height: 50.0,
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: deviceData.measures[0].measures.length,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index){
+                        return MeasuresTile(deviceData.measures[0], index);
+                      },
+                    ),
+                  )
                 ),
               ],
             ),

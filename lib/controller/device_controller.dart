@@ -67,4 +67,13 @@ class DeviceController {
             onFail();
         }
     }
+
+    String getDeviceType(int type){
+        List<String> types = [
+            'Temperature Sensor',
+            'Presence Sensor'
+        ];
+
+        return types[type];
+    }
 }

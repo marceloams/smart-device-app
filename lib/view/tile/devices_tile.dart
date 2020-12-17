@@ -51,7 +51,7 @@ class DevicesTile extends StatelessWidget {
                       icon: Icon(Icons.settings),
                       onPressed: (){
                         Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context)=>DeviceSettingsScreen())
+                            MaterialPageRoute(builder: (context)=>DeviceSettingsScreen(deviceData))
                         );
                       },
                     ),

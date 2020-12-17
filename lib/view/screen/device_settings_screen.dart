@@ -1,21 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'home_screen.dart';
 
 class DeviceSettingsScreen extends StatefulWidget {
+
+  //device data to get device info
+  DeviceData deviceData;
+
+  //constructor to receive deiceData
+  DeviceSettingsScreen(this.deviceData);
+
   @override
-  _DeviceSettingsScreenState createState() => _DeviceSettingsScreenState();
+  _DeviceSettingsScreenState createState() => _DeviceSettingsScreenState(deviceData);
 }
 
 class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
+  //device data to get device info
+  DeviceData deviceData;
+
+  //constructor to receive deiceData
+  _DeviceSettingsScreenState(this.deviceData);
+
   //global key to access the form at the sign up button
   final _formKey = GlobalKey<FormState>();
 
   //global key to access the scaffold at onSuccess and onFail functions
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  //controllers to get info from text fields
+  //text field controllers
   final _nameController = TextEditingController();
+  final _idController = TextEditingController();
+  final _typeController = TextEditingController();
 
   //device controller
   final DeviceController deviceController = DeviceController();
@@ -23,25 +39,18 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
   //bool to see if the device has been edited
   bool _deviceEdited = false;
 
-  int _mode;
+  //Function to get deviceData info
+  void _getDeviceDataInfo(){
+    _nameController.text = deviceData.name;
+    _idController.text = deviceData.id;
+    _typeController.text = deviceController.getDeviceType(deviceData.mode);
+  }
 
-  List<DropdownMenuItem> dropDownMenuItems(){
-    List<DropdownMenuItem> items = [];
-    Map<String, int> information = {
-      'Temperature Sensor': 0,
-      'Presence Sensor': 1
-    };
-
-    information.forEach((key, value) {
-      items.add(
-          DropdownMenuItem<int>(
-              value: value,
-              child: Text(key)
-          )
-      );
-    });
-
-    return items;
+  //Function to load page
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _getDeviceDataInfo());
   }
 
   @override
@@ -130,7 +139,6 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
 
               deviceData = {
                 'name': _nameController.text,
-                'mode': _mode,
               };
 
               deviceController.addDevice(deviceData, _onSuccess, _onFail);
@@ -198,42 +206,107 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                     ),
                   ),
                   SizedBox(height: 3.0),
-                  DropdownButtonFormField(
-                      dropdownColor: Color.fromARGB(255, 224, 224, 224),
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        enabledBorder: OutlineInputBorder(
+                  TextFormField( //full name text field
+                    controller: _typeController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                        disabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
                               width: 1.3
                           ),
-                        ),
-                      ),
-                      elevation: 1,
-                      iconSize: 30.0,
-                      isExpanded: true,
-                      hint: new Text("Choose the device type"),
-                      value: _mode,
-                      isDense: true,
-                      validator: (value){ //rule to validate the input data
-                        if(value == null) return 'Invalid Type!';
-                        else return null;
-                      },
-                      onChanged: (value) {
-                        setState(() {
-                          _mode = value;
-                          _deviceEdited = true;
-                        });
-                        print("value: $_mode");
-                      },
-                      items: dropDownMenuItems()
+                        )
+                    ),
                   ),
+                ],
+              ),
+              SizedBox(height: 15.0),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'Id',
+                    style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).primaryColor
+                    ),
+                  ),
+                  SizedBox(height: 3.0),
+                  TextFormField( //full name text field
+                    controller: _idController,
+                    enabled: false,
+                    decoration: InputDecoration(
+                      disabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                        borderSide: BorderSide(
+                          color: Theme.of(context).primaryColor,
+                          width: 1.3
+                        ),
+                      )
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 30.0),
+              Column(
+                children: [
+                  SizedBox(
+                    height: 50.0,
+                    child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.copy,
+                              color: Colors.white,
+                              size: 20.0,
+                            ),
+                            Text(
+                              '  Copy Id',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0
+                              ),
+                            ),
+                          ],
+                        ),
+                        color: Colors.blueGrey,
+                        onPressed: (){}
+                    ),
+                  ),
+                  SizedBox(height: 25.0),
+                  SizedBox(
+                    height: 50.0,
+                    child: RaisedButton(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                              size: 20.0,
+                            ),
+                            Text(
+                              '  Delete Device',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20.0
+                              ),
+                            ),
+                          ],
+                        ),
+                        color: Colors.red,
+                        onPressed: (){}
+                    ),
+                  )
                 ],
               )
             ],

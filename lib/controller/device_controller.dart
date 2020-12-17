@@ -3,7 +3,6 @@ import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/presence_sensor.dart';
-import 'package:realtimedatabase_teste/model/timestamp.dart';
 
 class DeviceController {
 
@@ -18,12 +17,23 @@ class DeviceController {
         await dbController.readData();
 
         dbController.data.forEach((key, value) {
-            print(value);
             _loadDevice(value);
         });
     }
 
     void _loadDevice(Map<dynamic,dynamic> data){
+
+        if(!data.containsKey('measures')){
+            Map<String, dynamic> measures = {
+                'measure-1': {
+                    'temperature': 0,
+                    'humidity': 0,
+                    'presence': false,
+                    'timestamp': '2020-06-23 12:30:00'
+                }
+            };
+            data['measures'] = measures;
+        }
 
         DeviceData device;
 
@@ -49,6 +59,11 @@ class DeviceController {
         deviceData['id'] = id;
         deviceData['reset'] = reset;
 
-        dbController.createData(id, deviceData);
+        try{
+            dbController.createData(id, deviceData);
+            onSuccess();
+        }catch(e){
+            onFail();
+        }
     }
 }

@@ -25,6 +25,7 @@ void DeleteDeviceAlert(BuildContext context, DeviceData deviceData){
     ).then((_){
       Navigator.of(context).pop();
       Navigator.of(context).pop();
+      Navigator.of(context).pop();
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => HomeScreen())
       );

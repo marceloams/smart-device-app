@@ -85,4 +85,13 @@ class DeviceController {
             onFail();
         }
     }
+
+    void deleteDevice(String deviceId, VoidCallback onSuccess, VoidCallback onFail){
+        try{
+            dbController.deleteData(deviceId);
+            onSuccess();
+        }catch(e){
+            onFail();
+        }
+    }
 }

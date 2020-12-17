@@ -25,11 +25,11 @@ class DevicesTile extends StatelessWidget {
                         deviceData.name,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20.0,
+                          fontSize: 25.0,
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      left: 150.0,
+                      left: 0.0,
                       top: 8.0
                   ),
                   Positioned(

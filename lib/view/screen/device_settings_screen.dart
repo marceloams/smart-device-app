@@ -1,6 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'package:realtimedatabase_teste/view/delete_device_alert.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'home_screen.dart';
 
@@ -316,7 +317,9 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                           ],
                         ),
                         color: Colors.red,
-                        onPressed: (){}
+                        onPressed: (){
+                          DeleteDeviceAlert(context, deviceData);
+                        }
                     ),
                   )
                 ],

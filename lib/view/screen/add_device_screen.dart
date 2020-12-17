@@ -23,6 +23,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   //bool to see if the device has been edited
   bool _deviceEdited = false;
 
+  //to get device mode
   int _mode;
 
   List<DropdownMenuItem> dropDownMenuItems(){
@@ -186,7 +187,6 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 16.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

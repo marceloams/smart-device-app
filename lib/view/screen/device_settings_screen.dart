@@ -1,3 +1,4 @@
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
@@ -276,7 +277,18 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                           ],
                         ),
                         color: Colors.blueGrey,
-                        onPressed: (){}
+                        onPressed: (){
+                          FlutterClipboard.copy(_idController.text).then((value){
+                            //snack bar with failure information
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text('Copied to Clipboard!'),
+                                    backgroundColor: Colors.blueGrey,
+                                    duration: Duration(seconds: 2)
+                                )
+                            );
+                          });
+                        }
                     ),
                   ),
                   SizedBox(height: 25.0),

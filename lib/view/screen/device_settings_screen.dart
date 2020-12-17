@@ -84,7 +84,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
       //snack bar with failure information
       ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Fail to add Device!'),
+              content: Text('Fail to update Device!'),
               backgroundColor: Colors.red,
               duration: Duration(seconds: 2)
           )
@@ -97,8 +97,8 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
         showDialog(context: context,
             builder: (context){
               return AlertDialog(
-                title: Text("Discard Device?"),
-                content: Text("If you leave device will be lost."),
+                title: Text("Discard Changes?"),
+                content: Text("If you leave changes will be lost."),
                 actions: <Widget>[
                   FlatButton(
                     child: Text("No"),
@@ -145,7 +145,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
 
             }
           },
-          child: Icon(Icons.add),
+          child: Icon(Icons.save),
           backgroundColor: Theme.of(context).primaryColor,
         ),
         body: Form(

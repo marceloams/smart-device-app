@@ -76,7 +76,7 @@ class DevicesTile extends StatelessWidget {
                       itemCount: deviceData.measures[0].measures.length,
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index){
-                        return MeasuresTile(deviceData.measures[0], index);
+                        return MeasuresTile(deviceData.measures.first, index);
                       },
                     ),
                   )

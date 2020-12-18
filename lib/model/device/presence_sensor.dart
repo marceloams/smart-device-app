@@ -26,5 +26,11 @@ class PresenceSensor implements DeviceData{
       presenceMeasure.setMeasureFromMap(value);
       measures.add(presenceMeasure);
     });
+
+    measures.sort((m1, m2) {
+      var r = m2.timestamp.toCompare.compareTo(m1.timestamp.toCompare);
+      if (r != 0) return r;
+      return m2.timestamp.toCompare.compareTo(m1.timestamp.toCompare);
+    });
   }
 }

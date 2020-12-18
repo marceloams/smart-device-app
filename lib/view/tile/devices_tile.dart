@@ -35,13 +35,6 @@ class DevicesTile extends StatelessWidget {
                   ),
                   Positioned(
                     child: IconButton(
-                      icon: Icon(Icons.refresh),
-                      onPressed: (){},
-                    ),
-                    right: 70.0,
-                  ),
-                  Positioned(
-                    child: IconButton(
                       icon: Icon(Icons.list_alt),
                       onPressed: (){
                         Navigator.of(context).push(

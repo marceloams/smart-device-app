@@ -10,14 +10,12 @@ class DeviceController {
 
     static List<DeviceData> devices = [];
 
-    Future<Null> loadDevices() async{
+    Future<Null> loadDevices(Map<dynamic,dynamic> data) async{
 
         devices = [];
 
-        await dbController.readData();
-
-        dbController.data.forEach((key, value) {
-            _loadDevice(value);
+        data.forEach((key, value) {
+           _loadDevice(value);
         });
     }
 

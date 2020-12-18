@@ -1,3 +1,4 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
@@ -13,15 +14,10 @@ class _HomeScreenState extends State<HomeScreen> {
   //Controllers
   DeviceController deviceController = DeviceController();
 
-  //Function to load page
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => deviceController.loadDevices());
-  }
-
   @override
   Widget build(BuildContext context) {
+    var dbReference = deviceController.dbController.databaseReference;
+
     return Scaffold(
         appBar: AppBar(
           title: Text("Smart Home"),
@@ -32,17 +28,48 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(
-                child: SizedBox(
-                  height: 200.0,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: DeviceController.devices.length,
-                    itemBuilder: (context, index) {
-                      return DevicesTile(DeviceController.devices[index]);
-                    },
-                  ),
-                ),
+              StreamBuilder(
+                stream: dbReference.onValue,
+                builder: (context, snap) {
+                  if (snap.hasData && !snap.hasError && snap.data.snapshot.value!=null) {
+
+                    //taking the data snapshot.
+                    DataSnapshot snapshot = snap.data.snapshot;
+                    Map<dynamic, dynamic> item = {};
+                    Map<dynamic, dynamic> _list;
+                    //it gives all the documents in this list.
+                    _list=snapshot.value;
+                    //Now we're just checking if document is not null then add it to another map called "item".
+                    _list.forEach((key, value) {
+                      if(value != null)
+                        item[key] = value;
+                    });
+
+                    //loading items to devices List
+                    deviceController.loadDevices(item);
+
+                    return item == null
+                    //return sizedbox if there's nothing in database.
+                        ? SizedBox()
+                        //otherwise return a list of widgets.
+                        : Expanded(
+                      child: SizedBox(
+                        height: 200.0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: DeviceController.devices.length,
+                          itemBuilder: (context, index) {
+                            return (
+                                DevicesTile(DeviceController.devices[index])
+                            );
+                          },
+                        ),
+                      ),
+                    );
+                  } else {
+                    return   Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
             ],
           ),

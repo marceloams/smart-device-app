@@ -49,7 +49,6 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
               label: Text(
                 element,
                 style: TextStyle(
-                  fontSize: 15.0,
                   fontWeight: FontWeight.bold,
                 ),
               )
@@ -86,7 +85,7 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
 
       cells.add(
           DataCell(
-              Text(element.timestamp.time)
+              Text(element.timestamp.date)
           )
       );
 
@@ -128,9 +127,10 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
               ),
               SizedBox(height: 16.0),
               DataTable(
+                columnSpacing: 0.0,
                 columns: _getDataColumns(),
                 rows: _getDataRows(),
-              ),
+              )
             ],
           ),
         ),

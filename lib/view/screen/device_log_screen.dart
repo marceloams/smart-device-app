@@ -112,26 +112,29 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
           title: Text("Device Log"),
           centerTitle: true,
         ),
-        body: Container(
-          padding: EdgeInsets.all(16.0),
-          alignment: Alignment.center,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(
-                deviceName,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  fontWeight: FontWeight.bold,
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  deviceName,
+                  style: TextStyle(
+                    fontSize: 25.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
-              SizedBox(height: 16.0),
-              DataTable(
-                columnSpacing: 0.0,
-                columns: _getDataColumns(),
-                rows: _getDataRows(),
-              )
-            ],
+                SizedBox(height: 16.0),
+                DataTable(
+                  columnSpacing: 0.0,
+
+                  columns: _getDataColumns(),
+                  rows: _getDataRows(),
+                )
+              ],
+            ),
           ),
         ),
       ),

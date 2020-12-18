@@ -20,7 +20,7 @@ class TemperatureHumidityMeasure implements MeasureData{
   @override
   void setMeasureFromMap(Map<dynamic, dynamic> map) {
     measures[0] = map['humidity'];
-    measures[1] = map['temperature'];
+    measures[1] = map['temperature'].toStringAsFixed(2);
     timestamp = Timestamp(map['timestamp']);
   }
 

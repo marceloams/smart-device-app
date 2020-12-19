@@ -96,6 +96,7 @@ class DeviceController {
     void deleteDevice(String deviceId, VoidCallback onSuccess, VoidCallback onFail){
         try{
             dbController.deleteData(deviceId);
+            dbController.createData(deviceId, {'reset': true});
             onSuccess();
         }catch(e){
             onFail();

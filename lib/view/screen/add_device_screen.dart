@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 
 class AddDeviceScreen extends StatefulWidget {
   @override
@@ -47,40 +48,10 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   @override
   Widget build(BuildContext context) {
 
-    //Alert Dialog to ask if the user wants to discard the changes
-    Future<bool> _requestPop(){
-      if(_deviceEdited){
-        showDialog(context: context,
-            builder: (context){
-              return AlertDialog(
-                title: Text("Discard Device?"),
-                content: Text("If you leave device will be lost."),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("No"),
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    child: Text("Yes"),
-                    onPressed: (){
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              );
-            }
-        );
-        return Future.value(false);
-      } else {
-        return Future.value(true);
-      }
-    }
+    RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'device');
 
     return WillPopScope(
-      onWillPop: _requestPop,
+      onWillPop: requestPopAlert.getRequestPopAlert,
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -147,6 +118,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                     maxLength: 20,
                     onChanged: (text){
                       _deviceEdited = true;
+                      requestPopAlert.edited = _deviceEdited;
                     },
                   ),
                 ],
@@ -194,6 +166,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                       setState(() {
                         _mode = value;
                         _deviceEdited = true;
+                        requestPopAlert.edited = _deviceEdited;
                       });
                       print("value: $_mode");
                     },

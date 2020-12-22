@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
-import 'home_screen.dart';
+import 'package:realtimedatabase_teste/view/afterMethodMessage.dart';
 
 class AddDeviceScreen extends StatefulWidget {
   @override
@@ -19,6 +19,8 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
 
   //device controller
   final DeviceController deviceController = DeviceController();
+
+  AfterMethodMessage afterMethodMessage;
 
   //bool to see if the device has been edited
   bool _deviceEdited = false;
@@ -47,41 +49,6 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-    //function that executes when update is a success
-    void _onSuccess(){
-
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Success to add Device!'),
-              backgroundColor: Theme.of(context).primaryColor,
-              duration: Duration(seconds: 2)
-          )
-      );
-
-      //after 2 sec goes to home screen
-      Future.delayed(
-          Duration(seconds:2)
-      ).then((_){
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => HomeScreen())
-        );
-      });
-    }
-
-    //function that executes when update is a fail
-    void _onFail(){
-      //snack bar with failure information
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Fail to add Device!'),
-              backgroundColor: Colors.red,
-              duration: Duration(seconds: 2)
-          )
-      );
-    }
 
     //Alert Dialog to ask if the user wants to discard the changes
     Future<bool> _requestPop(){
@@ -134,7 +101,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                 'mode': _mode,
               };
 
-              deviceController.addDevice(deviceData, _onSuccess, _onFail);
+              deviceController.addDevice(deviceData, context, 2);
 
             }
           },

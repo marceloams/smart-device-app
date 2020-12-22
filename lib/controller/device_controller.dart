@@ -3,6 +3,7 @@ import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/presence_sensor.dart';
+import 'package:realtimedatabase_teste/view/afterMethodMessage.dart';
 
 class DeviceController {
 
@@ -51,7 +52,10 @@ class DeviceController {
         return deviceType[mode];
     }
 
-    void addDevice(Map<String, dynamic> deviceData, VoidCallback onSuccess, VoidCallback onFail){
+    void addDevice(Map<String, dynamic> deviceData, BuildContext context, int numberOfPops){
+
+        AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'add device', numberOfPops);
+
         String id = (DateTime.now().millisecondsSinceEpoch + devices.length).toString();
         bool reset = false;
 
@@ -60,9 +64,9 @@ class DeviceController {
 
         try{
             dbController.createData(id, deviceData);
-            onSuccess();
+            afterMethodMessage.onSuccess();
         }catch(e){
-            onFail();
+            afterMethodMessage.onFail();
         }
     }
 

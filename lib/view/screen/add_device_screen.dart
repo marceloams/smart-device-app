@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/widgets/afterMethodMessage.dart';
 
 class AddDeviceScreen extends StatefulWidget {
   @override
@@ -19,8 +18,6 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
 
   //device controller
   final DeviceController deviceController = DeviceController();
-
-  AfterMethodMessage afterMethodMessage;
 
   //bool to see if the device has been edited
   bool _deviceEdited = false;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
-import 'package:realtimedatabase_teste/view/afterMethodMessage.dart';
+import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/widgets/afterMethodMessage.dart';
 
 class AddDeviceScreen extends StatefulWidget {
   @override

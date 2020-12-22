@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/alert/delete_device_alert.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 
 class DeviceSettingsScreen extends StatefulWidget {
 
@@ -57,40 +58,10 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    //Alert Dialog to ask if the user wants to discard the changes
-    Future<bool> _requestPop(){
-      if(_deviceEdited){
-        showDialog(context: context,
-            builder: (context){
-              return AlertDialog(
-                title: Text("Discard Changes?"),
-                content: Text("If you leave changes will be lost."),
-                actions: <Widget>[
-                  FlatButton(
-                    child: Text("No"),
-                    onPressed: (){
-                      Navigator.pop(context);
-                    },
-                  ),
-                  FlatButton(
-                    child: Text("Yes"),
-                    onPressed: (){
-                      Navigator.pop(context);
-                      Navigator.pop(context);
-                    },
-                  ),
-                ],
-              );
-            }
-        );
-        return Future.value(false);
-      } else {
-        return Future.value(true);
-      }
-    }
+    RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'changes');
 
     return WillPopScope(
-      onWillPop: _requestPop,
+      onWillPop: requestPopAlert.getRequestPopAlert,
       child: Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
@@ -156,6 +127,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                     maxLength: 20,
                     onChanged: (text){
                       _deviceEdited = true;
+                      requestPopAlert.edited= _deviceEdited;
                     },
                   ),
                 ],

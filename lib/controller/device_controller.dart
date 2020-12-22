@@ -3,7 +3,7 @@ import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/presence_sensor.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/widgets/afterMethodMessage.dart';
+import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class DeviceController {
 

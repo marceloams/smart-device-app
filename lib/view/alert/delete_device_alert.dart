@@ -2,47 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
-import 'package:realtimedatabase_teste/view/screen/home_screen.dart';
 
 void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
 
   DeviceController deviceController = DeviceController();
-
-  //function that executes when update is a success
-  void _onSuccess(){
-
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Success to delete Device!'),
-            backgroundColor: Theme.of(context).primaryColor,
-            duration: Duration(seconds: 2)
-        )
-    );
-
-    //after 2 sec goes to home screen
-    Future.delayed(
-        Duration(seconds:2)
-    ).then((_){
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
-      Navigator.of(context).pop();
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => HomeScreen())
-      );
-    });
-  }
-
-  //function that executes when update is a fail
-  void _onFail(){
-    //snack bar with failure information
-    ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Fail to delete Device!'),
-            backgroundColor: Colors.red,
-            duration: Duration(seconds: 2)
-        )
-    );
-  }
 
   showDialog(
     context:context,
@@ -120,7 +83,7 @@ void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
                   ),
                   color: Theme.of(context).primaryColor,
                   onPressed: (){
-                    deviceController.deleteDevice(deviceData.id, _onSuccess, _onFail);
+                    deviceController.deleteDevice(deviceData.id, context, 3);
                   },
                 ),
               ),

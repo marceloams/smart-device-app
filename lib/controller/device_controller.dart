@@ -100,13 +100,16 @@ class DeviceController {
         }
     }
 
-    void deleteDevice(String deviceId, VoidCallback onSuccess, VoidCallback onFail){
+    void deleteDevice(String deviceId, BuildContext context, int numberOfPops){
+
+        AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'delete device', numberOfPops);
+
         try{
             dbController.deleteData(deviceId);
             dbController.createData(deviceId, {'reset': true});
-            onSuccess();
+            afterMethodMessage.onSuccess();
         }catch(e){
-            onFail();
+            afterMethodMessage.onFail();
         }
     }
 }

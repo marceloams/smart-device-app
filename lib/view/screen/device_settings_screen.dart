@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/alert/delete_device_alert.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
-import 'home_screen.dart';
 
 class DeviceSettingsScreen extends StatefulWidget {
 
@@ -58,41 +57,6 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
   @override
   Widget build(BuildContext context) {
 
-    //function that executes when update is a success
-    void _onSuccess(){
-
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Success to update Device!'),
-              backgroundColor: Theme.of(context).primaryColor,
-              duration: Duration(seconds: 2)
-          )
-      );
-
-      //after 2 sec goes to home screen
-      Future.delayed(
-          Duration(seconds:2)
-      ).then((_){
-        Navigator.of(context).pop();
-        Navigator.of(context).pop();
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => HomeScreen())
-        );
-      });
-    }
-
-    //function that executes when update is a fail
-    void _onFail(){
-      //snack bar with failure information
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-              content: Text('Fail to update Device!'),
-              backgroundColor: Colors.red,
-              duration: Duration(seconds: 2)
-          )
-      );
-    }
-
     //Alert Dialog to ask if the user wants to discard the changes
     Future<bool> _requestPop(){
       if(_deviceEdited){
@@ -143,7 +107,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                 'name': _nameController.text,
               };
 
-              deviceController.updateDevice(deviceData, _idController.text, _onSuccess, _onFail);
+              deviceController.updateDevice(deviceData, _idController.text, context, 2);
 
             }
           },

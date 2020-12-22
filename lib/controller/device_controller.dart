@@ -88,12 +88,15 @@ class DeviceController {
         return types[type];
     }
 
-    void updateDevice(Map<String, dynamic> deviceData, String deviceId, VoidCallback onSuccess, VoidCallback onFail){
+    void updateDevice(Map<String, dynamic> deviceData, String deviceId, BuildContext context, int numberOfPops){
+
+        AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'update device', numberOfPops);
+
         try{
             dbController.updateData(deviceId, deviceData);
-            onSuccess();
+            afterMethodMessage.onSuccess();
         }catch(e){
-            onFail();
+            afterMethodMessage.onFail();
         }
     }
 

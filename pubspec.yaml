@@ -30,7 +30,6 @@ dependencies:
   cupertino_icons: ^1.0.1
   firebase_database: ^4.4.0
   firebase_core: ^0.5.3
-  pull_to_refresh: ^1.6.3
   clipboard: ^0.1.2+8
 
 dev_dependencies:

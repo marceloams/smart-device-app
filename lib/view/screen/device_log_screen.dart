@@ -27,7 +27,7 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
   //device controller
   final DeviceController deviceController = DeviceController();
 
-  //constructor to receive deiceData
+  //constructor to receive deviceData
   _DeviceLogScreenState(this.deviceData){
     deviceName = deviceData.name;
 
@@ -129,7 +129,6 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
                 SizedBox(height: 16.0),
                 DataTable(
                   columnSpacing: 0.0,
-
                   columns: _getDataColumns(),
                   rows: _getDataRows(),
                 )

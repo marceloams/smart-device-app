@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
+import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class AddDeviceScreen extends StatefulWidget {
   @override
@@ -16,9 +18,6 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
 
   //controllers to get info from text fields
   final _nameController = TextEditingController();
-
-  //device controller
-  final DeviceController deviceController = DeviceController();
 
   //bool to see if the device has been edited
   bool _deviceEdited = false;
@@ -48,6 +47,10 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   @override
   Widget build(BuildContext context) {
 
+    //Device Controller
+    DatabaseController dbController = DatabaseController();
+    DeviceController deviceController = DeviceController(dbController);
+
     RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'device');
 
     return WillPopScope(
@@ -71,7 +74,10 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
                 'reset': false
               };
 
-              deviceController.addDevice(deviceData, context, 2);
+              //create a AfterMethodMessage
+              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'add device', 2);
+
+              deviceController.addDevice(deviceData, afterMethodMessage);
 
             }
           },

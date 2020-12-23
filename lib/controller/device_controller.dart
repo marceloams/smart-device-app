@@ -1,13 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:realtimedatabase_teste/controller/database_controller.dart';
+import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/presence_sensor.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class DeviceController {
 
-    DatabaseController dbController = DatabaseController();
+    DatabaseController dbController;
+
+    DeviceController(this.dbController);
+
+    DevicesCharacteristics devicesCharacteristics = DevicesCharacteristics();
 
     static List<DeviceData> devices = [];
 
@@ -37,24 +39,13 @@ class DeviceController {
 
         DeviceData device;
 
-        device = _getDeviceType(data['mode']);
+        device = devicesCharacteristics.getDeviceInstance(data['mode']);
 
         device.setFromMap(data);
         devices.add(device);
     }
 
-    DeviceData _getDeviceType(int mode){
-        List<DeviceData> deviceType = [
-            Dht11Sensor(),
-            PresenceSensor()
-        ];
-
-        return deviceType[mode];
-    }
-
-    void addDevice(Map<String, dynamic> deviceData, BuildContext context, int numberOfPops){
-
-        AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'add device', numberOfPops);
+    void addDevice(Map<String, dynamic> deviceData, AfterMethodMessage afterMethodMessage){
 
         try{
             dbController.createData(deviceData['id'], deviceData);
@@ -64,27 +55,7 @@ class DeviceController {
         }
     }
 
-    String getDeviceType(int type){
-        List<String> types = [
-            'Temperature Sensor',
-            'Presence Sensor'
-        ];
-
-        return types[type];
-    }
-
-    List<String> getDeviceTypeMeasures(int type){
-        List<List<String>> types = [
-            ['Humidity', 'Temperature'],
-            ['Presence']
-        ];
-
-        return types[type];
-    }
-
-    void updateDevice(Map<String, dynamic> deviceData, String deviceId, BuildContext context, int numberOfPops){
-
-        AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'update device', numberOfPops);
+    void updateDevice(Map<String, dynamic> deviceData, String deviceId, AfterMethodMessage afterMethodMessage){
 
         try{
             dbController.updateData(deviceId, deviceData);
@@ -94,9 +65,7 @@ class DeviceController {
         }
     }
 
-    void deleteDevice(String deviceId, BuildContext context, int numberOfPops){
-
-        AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'delete device', numberOfPops);
+    void deleteDevice(String deviceId, AfterMethodMessage afterMethodMessage){
 
         try{
             dbController.deleteData(deviceId);

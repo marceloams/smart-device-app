@@ -1,9 +1,12 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/alert/delete_device_alert.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
+import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class DeviceSettingsScreen extends StatefulWidget {
 
@@ -24,6 +27,9 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
   //constructor to receive deiceData
   _DeviceSettingsScreenState(this.deviceData);
 
+  //devices characteristics object
+  DevicesCharacteristics devicesCharacteristics = DevicesCharacteristics();
+
   //global key to access the form at the sign up button
   final _formKey = GlobalKey<FormState>();
 
@@ -35,9 +41,6 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
   final _idController = TextEditingController();
   final _typeController = TextEditingController();
 
-  //device controller
-  final DeviceController deviceController = DeviceController();
-
   //bool to see if the device has been edited
   bool _deviceEdited = false;
 
@@ -45,7 +48,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
   void _getDeviceDataInfo(){
     _nameController.text = deviceData.name;
     _idController.text = deviceData.id;
-    _typeController.text = deviceController.getDeviceType(deviceData.mode);
+    _typeController.text = devicesCharacteristics.getDeviceType(deviceData.mode);
   }
 
   //Function to load page
@@ -57,6 +60,10 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    //Device Controller
+    DatabaseController dbController = DatabaseController();
+    DeviceController deviceController = DeviceController(dbController);
 
     RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'changes');
 
@@ -78,7 +85,10 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                 'name': _nameController.text,
               };
 
-              deviceController.updateDevice(deviceData, _idController.text, context, 2);
+              //create a AfterMethodMessage
+              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'update device', 2);
+
+              deviceController.updateDevice(deviceData, _idController.text, afterMethodMessage);
 
             }
           },

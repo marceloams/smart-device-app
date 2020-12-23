@@ -1,6 +1,7 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/tile/devices_tile.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/screen/add_device_screen.dart';
@@ -11,11 +12,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //Controllers
-  DeviceController deviceController = DeviceController();
 
   @override
   Widget build(BuildContext context) {
+
+    //Controllers
+    DatabaseController dbController = DatabaseController();
+    DeviceController deviceController = DeviceController(dbController);
+
     var dbReference = deviceController.dbController.databaseReference;
 
     return Scaffold(

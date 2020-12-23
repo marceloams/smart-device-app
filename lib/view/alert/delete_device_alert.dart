@@ -1,11 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
 
-  DeviceController deviceController = DeviceController();
+  //Device Controller
+  DatabaseController dbController = DatabaseController();
+  DeviceController deviceController = DeviceController(dbController);
 
   showDialog(
     context:context,
@@ -83,7 +87,9 @@ void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
                   ),
                   color: Theme.of(context).primaryColor,
                   onPressed: (){
-                    deviceController.deleteDevice(deviceData.id, context, 3);
+                    //create a AfterMethodMessage
+                    AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'delete device', 3);
+                    deviceController.deleteDevice(deviceData.id, afterMethodMessage);
                   },
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
 
 class DeviceLogScreen extends StatefulWidget {
 
@@ -18,20 +18,20 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
   //device data to get device info
   final DeviceData deviceData;
 
+  //devices characteristics object
+  DevicesCharacteristics devicesCharacteristics = DevicesCharacteristics();
+
   //to get device name
   String deviceName;
 
   //to get log columns
   List<String> logColumns = [];
 
-  //device controller
-  final DeviceController deviceController = DeviceController();
-
   //constructor to receive deviceData
   _DeviceLogScreenState(this.deviceData){
     deviceName = deviceData.name;
 
-    logColumns = deviceController.getDeviceTypeMeasures(deviceData.mode);
+    logColumns = devicesCharacteristics.getDeviceTypeMeasures(deviceData.mode);
     logColumns.addAll(['Time','Date']);
   }
 

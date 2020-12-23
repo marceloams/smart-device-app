@@ -68,6 +68,7 @@ class DeviceController {
     void deleteDevice(String deviceId, AfterMethodMessage afterMethodMessage){
 
         try{
+            if(deviceId == null) throw Exception();
             dbController.deleteData(deviceId);
             dbController.createData(deviceId, {'reset': true});
             afterMethodMessage.onSuccess();

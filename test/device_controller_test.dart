@@ -14,29 +14,45 @@ main(){
 
   AfterMethodMessage mockAfterMethodMessage = MockAfterMethodMeassage();
 
-  group('testing addDevice method',(){
-    test('verify if is calling methods with no error',() {
-      deviceController.addDevice({'id':'id'}, mockAfterMethodMessage);
-      verify(deviceController.dbController.createData('id', {'id':'id'}));
-      verify(mockAfterMethodMessage.onSuccess());
+  group('Testing DeviceController Methods', (){
+
+    group('Testing addDevice method',(){
+      test('verify if is calling methods with no error',() {
+        deviceController.addDevice({'id':'id'}, mockAfterMethodMessage);
+        verify(deviceController.dbController.createData('id', {'id':'id'}));
+        verify(mockAfterMethodMessage.onSuccess());
+      });
+
+      test('Verify if is calling methods with error',() {
+        deviceController.addDevice({'id':true}, mockAfterMethodMessage);
+        verify(mockAfterMethodMessage.onFail());
+      });
     });
 
-    test('verify if is calling methods with error',() {
-      deviceController.addDevice({'id':true}, mockAfterMethodMessage);
-      verify(mockAfterMethodMessage.onFail());
-    });
-  });
+    group('Testing updateDevice method',(){
+      test('verify if is calling methods with no error',() {
+        deviceController.updateDevice({'id': 'id'}, mockAfterMethodMessage);
+        verify(deviceController.dbController.updateData('id', {'id':'id'}));
+        verify(mockAfterMethodMessage.onSuccess());
+      });
 
-  group('testing updateDevice method',(){
-    test('verify if is calling methods with no error',() {
-      deviceController.updateDevice({'id': 'id'}, mockAfterMethodMessage);
-      verify(deviceController.dbController.updateData('id', {'id':'id'}));
-      verify(mockAfterMethodMessage.onSuccess());
+      test('Verify if is calling methods with error',() {
+        deviceController.updateDevice({'id':true}, mockAfterMethodMessage);
+        verify(mockAfterMethodMessage.onFail());
+      });
     });
 
-    test('verify if is calling methods with error',() {
-      deviceController.updateDevice({'id':true}, mockAfterMethodMessage);
-      verify(mockAfterMethodMessage.onFail());
+    group('Testing deleteDevice method',(){
+      test('Verify if is calling methods with no error',() {
+        deviceController.deleteDevice('id', mockAfterMethodMessage);
+        verify(deviceController.dbController.deleteData('id'));
+        verify(mockAfterMethodMessage.onSuccess());
+      });
+
+      test('Verify if is calling methods with error',() {
+        deviceController.deleteDevice(null, mockAfterMethodMessage);
+        verify(mockAfterMethodMessage.onFail());
+      });
     });
   });
 }

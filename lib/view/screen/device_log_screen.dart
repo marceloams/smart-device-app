@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
 
 class DeviceLogScreen extends StatefulWidget {

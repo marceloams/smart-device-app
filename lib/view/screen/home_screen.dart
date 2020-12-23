@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/tile/devices_tile.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/screen/add_device_screen.dart';
+import 'package:realtimedatabase_teste/view/screen/add_device_screen.dart';
+import 'package:realtimedatabase_teste/view/tile/devices_tile.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

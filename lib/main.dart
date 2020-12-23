@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'view/screen/home_screen.dart';
+import 'package:realtimedatabase_teste/view/screen/home_screen.dart';
 
 void main() {
   runApp(MyApp());

@@ -2,9 +2,9 @@ import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/view/alert/delete_device_alert.dart';
-import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
+import 'package:realtimedatabase_teste/view/alert/delete_device_alert.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 

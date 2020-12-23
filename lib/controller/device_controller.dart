@@ -56,14 +56,8 @@ class DeviceController {
 
         AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'add device', numberOfPops);
 
-        String id = (DateTime.now().millisecondsSinceEpoch + devices.length).toString();
-        bool reset = false;
-
-        deviceData['id'] = id;
-        deviceData['reset'] = reset;
-
         try{
-            dbController.createData(id, deviceData);
+            dbController.createData(deviceData['id'], deviceData);
             afterMethodMessage.onSuccess();
         }catch(e){
             afterMethodMessage.onFail();

@@ -67,6 +67,8 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
               deviceData = {
                 'name': _nameController.text,
                 'mode': _mode,
+                'id': (DateTime.now().millisecondsSinceEpoch).toString(),
+                'reset': false
               };
 
               deviceController.addDevice(deviceData, context, 2);

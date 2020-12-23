@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text("Smart Home"),
+          title: Text("Smart Devices"),
           centerTitle: true,
         ),
         body: Container(

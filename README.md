@@ -105,7 +105,6 @@ Caso algo deu errado, segue um [tutorial](https://www.treinaweb.com.br/blog/conf
 - No prompt de comando dentro do diretório do projeto, rode os seguintes comandos:
 
 ```
-flutter clean
 flutter pub get
 flutter run
 ```

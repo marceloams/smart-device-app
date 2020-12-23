@@ -1,36 +1,49 @@
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/device_data.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/dht11_sensor.dart';
 import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste/lib/model/device/presence_sensor.dart';
+import 'package:realtimedatabase_teste/model/devices_characteristics_base.dart';
 
-class DevicesCharacteristics {
+class DevicesCharacteristics extends DevicesCharacteristicsBase{
 
-  List<Map<dynamic,dynamic>> devices = [
-    {
-      'name': 'Temperature Sensor',
-      'measures-types': ['Humidity', 'Temperature']
-    },
-    {
-      'name': 'Presence Sensor',
-      'measures-types': ['Presence']
-    }
-  ];
+  static DevicesCharacteristics _instance = DevicesCharacteristics._internal();
 
-  void _setInstances(){
-    devices[0]['instance'] = Dht11Sensor();
-    devices[1]['instance'] = PresenceSensor();
+  factory DevicesCharacteristics(){
+    return _instance;
+  }
+
+  DevicesCharacteristics._internal() {
+    initialList = [
+      {
+        'instance': Dht11Sensor(),
+        'name': 'Temperature Sensor',
+        'measures-types': ['Humidity', 'Temperature']
+      },
+      {
+        'instance': PresenceSensor(),
+        'name': 'Presence Sensor',
+        'measures-types': ['Presence']
+      }
+    ];
+
+    stateList = initialList;
+  }
+
+  void _resetInstances(){
+    stateList[0]['instance'] = Dht11Sensor();
+    stateList[1]['instance'] = PresenceSensor();
   }
 
   DeviceData getDeviceInstance(int type){
-    _setInstances();
-    return devices[type]['instance'];
+    _resetInstances();
+    return stateList[type]['instance'];
   }
 
   String getDeviceType(int type){
-    return devices[type]['name'];
+    return stateList[type]['name'];
   }
 
   List<String> getDeviceTypeMeasures(int type){
-    return devices[type]['measures-types'];
+    return stateList[type]['measures-types'];
   }
 
 }

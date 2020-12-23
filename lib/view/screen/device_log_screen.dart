@@ -31,7 +31,9 @@ class _DeviceLogScreenState extends State<DeviceLogScreen> {
   _DeviceLogScreenState(this.deviceData){
     deviceName = deviceData.name;
 
-    logColumns = devicesCharacteristics.getDeviceTypeMeasures(deviceData.mode);
+    devicesCharacteristics.getDeviceTypeMeasures(deviceData.mode).forEach((element) {
+      logColumns.add(element);
+    });
     logColumns.addAll(['Time','Date']);
   }
 

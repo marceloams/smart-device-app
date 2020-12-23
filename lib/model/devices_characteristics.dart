@@ -4,31 +4,33 @@ import 'file:///D:/Users/marce/OneDrive/Documentos/Testes/realtimedatabase_teste
 
 class DevicesCharacteristics {
 
-  DeviceData getDeviceInstance(int mode){
-    List<DeviceData> deviceType = [
-      Dht11Sensor(),
-      PresenceSensor()
-    ];
+  List<Map<dynamic,dynamic>> devices = [
+    {
+      'name': 'Temperature Sensor',
+      'measures-types': ['Humidity', 'Temperature']
+    },
+    {
+      'name': 'Presence Sensor',
+      'measures-types': ['Presence']
+    }
+  ];
 
-    return deviceType[mode];
+  void _setInstances(){
+    devices[0]['instance'] = Dht11Sensor();
+    devices[1]['instance'] = PresenceSensor();
+  }
+
+  DeviceData getDeviceInstance(int type){
+    _setInstances();
+    return devices[type]['instance'];
   }
 
   String getDeviceType(int type){
-    List<String> types = [
-      'Temperature Sensor',
-      'Presence Sensor'
-    ];
-
-    return types[type];
+    return devices[type]['name'];
   }
 
   List<String> getDeviceTypeMeasures(int type){
-    List<List<String>> types = [
-      ['Humidity', 'Temperature'],
-      ['Presence']
-    ];
-
-    return types[type];
+    return devices[type]['measures-types'];
   }
 
 }

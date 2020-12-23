@@ -6,9 +6,6 @@ class DatabaseController {
   Map<dynamic, dynamic> data;
 
   void createData(String id, Map<String, dynamic> map) {
-
-    print(map);
-
     databaseReference.child(id).set(map);
   }
 

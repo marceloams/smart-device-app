@@ -13,6 +13,10 @@ class DeviceController {
 
     static List<DeviceData> devices = [];
 
+    int getDevicesLenght(){
+        return devices.length;
+    }
+
     Future<Null> loadDevices(Map<dynamic,dynamic> data) async{
 
         devices = [];

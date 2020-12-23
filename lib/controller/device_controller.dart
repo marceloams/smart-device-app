@@ -55,10 +55,10 @@ class DeviceController {
         }
     }
 
-    void updateDevice(Map<String, dynamic> deviceData, String deviceId, AfterMethodMessage afterMethodMessage){
+    void updateDevice(Map<String, dynamic> deviceData, AfterMethodMessage afterMethodMessage){
 
         try{
-            dbController.updateData(deviceId, deviceData);
+            dbController.updateData(deviceData['id'], deviceData);
             afterMethodMessage.onSuccess();
         }catch(e){
             afterMethodMessage.onFail();

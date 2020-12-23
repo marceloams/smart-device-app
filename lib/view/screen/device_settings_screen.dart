@@ -82,13 +82,14 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
               Map<String, dynamic> deviceData;
 
               deviceData = {
+                'id': _idController.text,
                 'name': _nameController.text,
               };
 
               //create a AfterMethodMessage
               AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'update device', 2);
 
-              deviceController.updateDevice(deviceData, _idController.text, afterMethodMessage);
+              deviceController.updateDevice(deviceData, afterMethodMessage);
 
             }
           },

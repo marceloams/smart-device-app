@@ -9,28 +9,34 @@ class MockAfterMethodMeassage extends Mock implements AfterMethodMessage{}
 
 main(){
 
-  TestWidgetsFlutterBinding.ensureInitialized();
-
   DatabaseController mockDatabaseController = MockDatabaseController();
   DeviceController deviceController = DeviceController(mockDatabaseController);
 
   AfterMethodMessage mockAfterMethodMessage = MockAfterMethodMeassage();
 
   group('testing addDevice method',(){
-    test('verify if method addDevice is calling methods on correct behalf',() {
+    test('verify if is calling methods with no error',() {
       deviceController.addDevice({'id':'id'}, mockAfterMethodMessage);
       verify(deviceController.dbController.createData('id', {'id':'id'}));
       verify(mockAfterMethodMessage.onSuccess());
     });
 
-    test('verify if method addDevice is calling methods on incorrect behalf',() {
+    test('verify if is calling methods with error',() {
       deviceController.addDevice({'id':true}, mockAfterMethodMessage);
       verify(mockAfterMethodMessage.onFail());
     });
   });
 
-  test('returns if method addData is calling createData from DatabaseController',() {
-    deviceController.addDevice({'id':'id'}, mockAfterMethodMessage);
-    verify(deviceController.dbController.createData('id', {'id':'id'}));
+  group('testing updateDevice method',(){
+    test('verify if is calling methods with no error',() {
+      deviceController.updateDevice({'id': 'id'}, mockAfterMethodMessage);
+      verify(deviceController.dbController.updateData('id', {'id':'id'}));
+      verify(mockAfterMethodMessage.onSuccess());
+    });
+
+    test('verify if is calling methods with error',() {
+      deviceController.updateDevice({'id':true}, mockAfterMethodMessage);
+      verify(mockAfterMethodMessage.onFail());
+    });
   });
 }

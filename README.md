@@ -1,4 +1,4 @@
-<img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/header-readme.png" >
+<img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/header-readme.png">
 
 ---
 
@@ -27,7 +27,7 @@
 - [x] Leitura em tempo real da medida de um dispositivo;
 - [x] Listagem das mediadas de um dsipositivo;
 - [ ] Cadastro de um usuário;
-- [ ] Edição de um usuário.
+- [ ] Configuração de um usuário.
 
 ---
 
@@ -80,7 +80,7 @@
   - Android Studio ou Visual Studio Code;
   - Android SDK;
   - Java JDK;
-  - Um emulador ou um dispositivo para testar a aplicação;
+  - Um emulador ou um dispositivo para testar a aplicação.
  
 ### Verificação 
 
@@ -115,7 +115,7 @@ flutter run
  
 ---
  
-✔️ Se seguiu os passo e obteve sucesso é sinal que funcionou!
+✔️ Se seguiu os passos e obteve sucesso é sinal que funcionou!
 <br>
 <br>
 <img src="https://media.giphy.com/media/nDSlfqf0gn5g4/giphy.gif">

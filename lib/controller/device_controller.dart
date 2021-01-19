@@ -13,7 +13,7 @@ class DeviceController {
 
     static List<DeviceData> devices = [];
 
-    int getDevicesLenght(){
+    int getDevicesLength(){
         return devices.length;
     }
 

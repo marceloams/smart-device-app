@@ -32,7 +32,7 @@ main(){
         };
 
         deviceController.loadDevices(devices);
-        expect(deviceController.getDevicesLenght(), 1);
+        expect(deviceController.getDevicesLength(), 1);
       });
 
       test('testing if is loading a devices with measures data',() {
@@ -56,7 +56,7 @@ main(){
         };
 
         deviceController.loadDevices(devices);
-        expect(deviceController.getDevicesLenght(), 1);
+        expect(deviceController.getDevicesLength(), 1);
       });
     });
 

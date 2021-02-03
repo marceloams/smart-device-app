@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="marceloams.br.realtimedatabase_teste">
-   <application
-        android:label="realtimedatabase_teste"
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:label="Smart Devices"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

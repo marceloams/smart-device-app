@@ -1,10 +1,14 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:realtimedatabase_teste/controller/database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/view/screen/add_device_screen.dart';
+import 'package:realtimedatabase_teste/view/screen/profile_screen.dart';
 import 'package:realtimedatabase_teste/view/tile/devices_tile.dart';
+
+import 'signIn_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -26,6 +30,34 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text("Smart Devices"),
           centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.person_rounded,
+              size: 32.0,
+            ),
+            onPressed:() {
+              Navigator.of(context).push(
+                  MaterialPageRoute(
+                      builder: (context)=>ProfileScreen(context)
+                  )
+              );
+            }
+          ),
+          actions: <Widget>[
+            FlatButton(
+              child: Icon(
+                  Icons.logout
+              ),
+              textColor: Colors.white,
+              onPressed: (){
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (context)=>SignInScreen()
+                    )
+                );
+              },
+            ),
+          ],
         ),
         body: Container(
           alignment: Alignment.center,

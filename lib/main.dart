@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:realtimedatabase_teste/view/screen/home_screen.dart';
+import 'package:realtimedatabase_teste/view/screen/signIn_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: SignInScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

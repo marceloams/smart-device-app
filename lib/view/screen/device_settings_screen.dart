@@ -7,6 +7,7 @@ import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
 import 'package:realtimedatabase_teste/view/alert/delete_device_alert.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
+import 'home_screen.dart';
 
 class DeviceSettingsScreen extends StatefulWidget {
 
@@ -91,6 +92,9 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
 
               deviceController.updateDevice(deviceData, afterMethodMessage);
 
+              MaterialPageRoute(
+                  builder: (context)=>HomeScreen()
+              );
             }
           },
           child: Icon(Icons.save),

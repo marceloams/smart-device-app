@@ -122,13 +122,13 @@ class _SignInScreenState extends State<SignInScreen> {
               SizedBox(
                 height: 44.0,
                 child: GoogleAuthButton(
-                    onPressed: () {}, darkMode: false, borderRadius: 0.0),
+                    onPressed: () {}, darkMode: false),
               ),
               SizedBox(height: 16.0),
               SizedBox(
                 height: 44.0,
                 child: FacebookAuthButton(
-                    onPressed: () {}, darkMode: false, borderRadius: 0.0),
+                    onPressed: () {}, darkMode: false),
               )
             ],
           ),

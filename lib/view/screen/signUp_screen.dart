@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:realtimedatabase_teste/view/screen/signIn_screen.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class SignUpScreen extends StatefulWidget {

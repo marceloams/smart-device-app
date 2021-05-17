@@ -100,183 +100,371 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
           child: Icon(Icons.save),
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        body: Form(
-          key: _formKey,
-          child: ListView(
-            padding: EdgeInsets.all(20.0),
-            children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Name',
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor
-                    ),
-                  ),
-                  SizedBox(height: 3.0),
-                  TextFormField( //full name text field
-                    controller: _nameController,
-                    decoration: InputDecoration(
-                      hintText: 'Put device name',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
+        body: LayoutBuilder(
+          builder: (context, constraints){
+            return constraints.maxWidth < 760 ?
+            Form(
+              key: _formKey,
+              child: ListView(
+                padding: EdgeInsets.all(20.0),
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Name',
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor
                         ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
-                            width: 1.3
-                        ),
-                      ),
-                    ),
-                    validator: (text){ //rule to validate the input data
-                      if(text.isEmpty) return 'Invalid Name!';
-                      else return null;
-                    },
-                    maxLength: 20,
-                    onChanged: (text){
-                      _deviceEdited = true;
-                      requestPopAlert.edited= _deviceEdited;
-                    },
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Type',
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor
-                    ),
-                  ),
-                  SizedBox(height: 3.0),
-                  TextFormField( //full name text field
-                    controller: _typeController,
-                    enabled: false,
-                    decoration: InputDecoration(
-                        disabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                          borderSide: BorderSide(
+                      SizedBox(height: 3.0),
+                      TextFormField( //full name text field
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                          hintText: 'Put device name',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
-                              width: 1.3
+                            ),
                           ),
-                        )
-                    ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor,
+                                width: 1.3
+                            ),
+                          ),
+                        ),
+                        validator: (text){ //rule to validate the input data
+                          if(text.isEmpty) return 'Invalid Name!';
+                          else return null;
+                        },
+                        maxLength: 20,
+                        onChanged: (text){
+                          _deviceEdited = true;
+                          requestPopAlert.edited= _deviceEdited;
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              SizedBox(height: 15.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Id',
-                    style: TextStyle(
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).primaryColor
-                    ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Type',
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor
+                        ),
+                      ),
+                      SizedBox(height: 3.0),
+                      TextFormField( //full name text field
+                        controller: _typeController,
+                        enabled: false,
+                        decoration: InputDecoration(
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 1.3
+                              ),
+                            )
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 3.0),
-                  TextFormField( //full name text field
-                    controller: _idController,
-                    enabled: false,
-                    decoration: InputDecoration(
-                      disabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                        borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
-                          width: 1.3
+                  SizedBox(height: 15.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Id',
+                        style: TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).primaryColor
+                        ),
+                      ),
+                      SizedBox(height: 3.0),
+                      TextFormField( //full name text field
+                        controller: _idController,
+                        enabled: false,
+                        decoration: InputDecoration(
+                            disabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 1.3
+                              ),
+                            )
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30.0),
+                  Column(
+                    children: [
+                      SizedBox(
+                        height: 50.0,
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.copy,
+                                  color: Colors.white,
+                                  size: 20.0,
+                                ),
+                                Text(
+                                  '  Copy Id',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0
+                                  ),
+                                ),
+                              ],
+                            ),
+                            color: Colors.blueGrey,
+                            onPressed: (){
+                              FlutterClipboard.copy(_idController.text).then((value){
+                                //snack bar with failure information
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                        content: Text('Copied to Clipboard!'),
+                                        backgroundColor: Colors.blueGrey,
+                                        duration: Duration(seconds: 2)
+                                    )
+                                );
+                              });
+                            }
+                        ),
+                      ),
+                      SizedBox(height: 25.0),
+                      SizedBox(
+                        height: 50.0,
+                        child: RaisedButton(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10)
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.delete,
+                                  color: Colors.white,
+                                  size: 20.0,
+                                ),
+                                Text(
+                                  '  Delete Device',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20.0
+                                  ),
+                                ),
+                              ],
+                            ),
+                            color: Colors.red,
+                            onPressed: (){
+                              deleteDeviceAlert(context, deviceData);
+                            }
                         ),
                       )
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 30.0),
-              Column(
-                children: [
-                  SizedBox(
-                    height: 50.0,
-                    child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.copy,
-                              color: Colors.white,
-                              size: 20.0,
-                            ),
-                            Text(
-                              '  Copy Id',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0
-                              ),
-                            ),
-                          ],
-                        ),
-                        color: Colors.blueGrey,
-                        onPressed: (){
-                          FlutterClipboard.copy(_idController.text).then((value){
-                            //snack bar with failure information
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text('Copied to Clipboard!'),
-                                    backgroundColor: Colors.blueGrey,
-                                    duration: Duration(seconds: 2)
-                                )
-                            );
-                          });
-                        }
-                    ),
-                  ),
-                  SizedBox(height: 25.0),
-                  SizedBox(
-                    height: 50.0,
-                    child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10)
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.delete,
-                              color: Colors.white,
-                              size: 20.0,
-                            ),
-                            Text(
-                              '  Delete Device',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20.0
-                              ),
-                            ),
-                          ],
-                        ),
-                        color: Colors.red,
-                        onPressed: (){
-                          deleteDeviceAlert(context, deviceData);
-                        }
-                    ),
+                    ],
                   )
                 ],
-              )
-            ],
-          ),
+              ),
+            ) :
+            Center(
+              child: Container(
+                width: 600,
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    padding: EdgeInsets.all(20.0),
+                    children: <Widget>[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Name',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor
+                            ),
+                          ),
+                          SizedBox(height: 3.0),
+                          TextFormField( //full name text field
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              hintText: 'Put device name',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                ),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10.0),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).primaryColor,
+                                    width: 1.3
+                                ),
+                              ),
+                            ),
+                            validator: (text){ //rule to validate the input data
+                              if(text.isEmpty) return 'Invalid Name!';
+                              else return null;
+                            },
+                            maxLength: 20,
+                            onChanged: (text){
+                              _deviceEdited = true;
+                              requestPopAlert.edited= _deviceEdited;
+                            },
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Type',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor
+                            ),
+                          ),
+                          SizedBox(height: 3.0),
+                          TextFormField( //full name text field
+                            controller: _typeController,
+                            enabled: false,
+                            decoration: InputDecoration(
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).primaryColor,
+                                      width: 1.3
+                                  ),
+                                )
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 15.0),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Id',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                                color: Theme.of(context).primaryColor
+                            ),
+                          ),
+                          SizedBox(height: 3.0),
+                          TextFormField( //full name text field
+                            controller: _idController,
+                            enabled: false,
+                            decoration: InputDecoration(
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  borderSide: BorderSide(
+                                      color: Theme.of(context).primaryColor,
+                                      width: 1.3
+                                  ),
+                                )
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 30.0),
+                      Column(
+                        children: [
+                          SizedBox(
+                            height: 50.0,
+                            child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.copy,
+                                      color: Colors.white,
+                                      size: 20.0,
+                                    ),
+                                    Text(
+                                      '  Copy Id',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                color: Colors.blueGrey,
+                                onPressed: (){
+                                  FlutterClipboard.copy(_idController.text).then((value){
+                                    //snack bar with failure information
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(
+                                            content: Text('Copied to Clipboard!'),
+                                            backgroundColor: Colors.blueGrey,
+                                            duration: Duration(seconds: 2)
+                                        )
+                                    );
+                                  });
+                                }
+                            ),
+                          ),
+                          SizedBox(height: 25.0),
+                          SizedBox(
+                            height: 50.0,
+                            child: RaisedButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.delete,
+                                      color: Colors.white,
+                                      size: 20.0,
+                                    ),
+                                    Text(
+                                      '  Delete Device',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20.0
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                color: Colors.red,
+                                onPressed: (){
+                                  deleteDeviceAlert(context, deviceData);
+                                }
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

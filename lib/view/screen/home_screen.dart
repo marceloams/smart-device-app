@@ -89,14 +89,17 @@ class _HomeScreenState extends State<HomeScreen> {
                         ? SizedBox()
                         //otherwise return a list of widgets.
                         : Expanded(
-                      child: SizedBox(
-                        height: 200.0,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30.0)
+                        ),
+                        height: 800.0,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: DeviceController.devices.length,
                           itemBuilder: (context, index) {
                             return (
-                                DevicesTile(DeviceController.devices[index])
+                                DevicesTile(DeviceController.devices[index], 200)
                             );
                           },
                         ),

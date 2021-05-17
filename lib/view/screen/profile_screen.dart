@@ -66,7 +66,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Icon(Icons.save),
             backgroundColor: Theme.of(context).primaryColor,
           ),
-          body: Form( //to validate inputs
+          body: LayoutBuilder(
+            builder: (context, constraints){
+              return constraints.maxWidth < 760 ?
+              Form( //to validate inputs
                 key: _formKey, //global key to be accessed from 'outside'
                 child: ListView(
                   padding: EdgeInsets.all(16.0),
@@ -132,7 +135,81 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   ],
                 ),
-              )
+              ) :
+              Center(
+                child: Container(
+                  width: 600,
+                  child: Form( //to validate inputs
+                    key: _formKey, //global key to be accessed from 'outside'
+                    child: ListView(
+                      padding: EdgeInsets.all(16.0),
+                      children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.person_rounded,
+                              size: 72,
+                            )
+                          ],
+                        ),
+                        SizedBox(height: 16.0),
+                        TextFormField( //full name text field
+                          controller: _nameController,
+                          //focusNode: _nameFocus,
+                          decoration: InputDecoration(
+                            labelText: 'Name',
+                            labelStyle: TextStyle(color: Colors.black),
+                            hintText: 'Name',
+                            //border: InputBorder.none,
+                          ),
+                          //enabled: _nameActivated, //to control input activation
+                          validator: (text){ //rule to validate the input data
+                            if(text.isEmpty) return 'Invalid Name!';
+                            else return null;
+                          },
+                          onChanged: (text){
+                            _userEdited = true;
+                          },
+                        ),
+                        SizedBox(height: 16.0),
+                        TextFormField( //email text field
+                            controller: _emailController,
+                            //focusNode: _emailFocus,
+                            decoration: InputDecoration(
+                              labelText: 'E-mail',
+                              labelStyle: TextStyle(color: Colors.black),
+                              //border: InputBorder.none,
+                            ),
+                            keyboardType: TextInputType.emailAddress, //use email keyboard type
+                            //enabled: _emailActivated,
+                            validator: (text){ //rule to validate the input data
+                              if(text.isEmpty || !text.contains('@')) return 'Invalid E-mail!';
+                              else return null;
+                            },
+                            onChanged: (text){
+                              _userEdited = true;
+                            }
+                        ),
+                        Align(
+                          //to align the forgot password button
+                          alignment: Alignment.centerRight,
+                          child: FlatButton(
+                            child: Text(
+                              'Change my password',
+                              textAlign: TextAlign.right,
+                            ),
+                            padding: EdgeInsets.zero,
+                            onPressed: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          )
       ),
     );
   }

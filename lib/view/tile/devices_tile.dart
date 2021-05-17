@@ -3,18 +3,27 @@ import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/view/screen/device_log_screen.dart';
 import 'package:realtimedatabase_teste/view/screen/device_settings_screen.dart';
 import 'package:realtimedatabase_teste/view/tile/measures_tile.dart';
+import 'package:realtimedatabase_teste/view/widget/measures_table.dart';
 
 class DevicesTile extends StatelessWidget {
 
   final DeviceData deviceData;
 
-  DevicesTile(this.deviceData);
+  final displaySize;
+
+  //to make measures table
+  MeasuresTable measuresTable;
+
+  DevicesTile(this.deviceData, this.displaySize){
+    measuresTable = MeasuresTable(deviceData);
+  }
 
   @override
   Widget build(BuildContext context) {
     return Card(
       child: Container(
-        height: 150.0,
+        height: displaySize > 760 ? 200.0 : 150.0,
+        width: 500.0,
         child: Column(
           children: [
             Container(
@@ -31,8 +40,9 @@ class DevicesTile extends StatelessWidget {
                         textAlign: TextAlign.center,
                       ),
                       left: 0.0,
-                      top: 8.0
+                      top: 12.5
                   ),
+                  displaySize < 760 ?
                   Positioned(
                     child: IconButton(
                       icon: Icon(Icons.list_alt),
@@ -43,7 +53,7 @@ class DevicesTile extends StatelessWidget {
                       },
                     ),
                     right: 35.0,
-                  ),
+                  ) : Container(),
                   Positioned(
                     child: IconButton(
                       icon: Icon(Icons.settings),
@@ -58,6 +68,8 @@ class DevicesTile extends StatelessWidget {
                 ],
               ),
             ),
+            displaySize > 760 ? Divider(color: Colors.black) : Container(),
+            SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -76,6 +88,38 @@ class DevicesTile extends StatelessWidget {
                 ),
               ],
             ),
+            displaySize > 760 ?
+            Column(
+              children: [
+                SizedBox(height: 16.0),
+                Divider(color: Colors.black),
+                Row(
+                  children: [
+                    Text(
+                      "Measures",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w300,
+                        fontSize: 25.0,
+                      ),
+                      textAlign: TextAlign.left,
+                    )
+                  ],
+                )
+              ],
+            ) : Container(),
+            displaySize > 760 ?
+            SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(16.0),
+                alignment: Alignment.center,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    measuresTable.getDataTable()
+                  ],
+                ),
+              ),
+            ) : Container()
           ],
         ),
       ),

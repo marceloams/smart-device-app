@@ -2,8 +2,9 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:realtimedatabase_teste/controller/database_controller.dart';
+import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/view/screen/add_device_screen.dart';
 import 'package:realtimedatabase_teste/view/screen/profile_screen.dart';
 import 'package:realtimedatabase_teste/view/tile/devices_tile.dart';
@@ -11,6 +12,7 @@ import 'package:realtimedatabase_teste/view/tile/devices_tile.dart';
 import 'signIn_screen.dart';
 
 class HomeScreen extends StatefulWidget {
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -23,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //Controllers
     DatabaseController dbController = DatabaseController();
     DeviceController deviceController = DeviceController(dbController);
+    UserController userController = UserController();
 
     var dbReference = deviceController.dbController.databaseReference;
 
@@ -49,7 +52,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.logout
               ),
               textColor: Colors.white,
-              onPressed: (){
+              onPressed: () async {
+                await userController.signOut();
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(
                         builder: (context)=>SignInScreen()

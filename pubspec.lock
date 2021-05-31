@@ -162,27 +162,48 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.1.0"
+  firebase_auth:
+    dependency: "direct main"
+    description:
+      name: firebase_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.4"
+  firebase_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_auth_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.2"
+  firebase_auth_web:
+    dependency: transitive
+    description:
+      name: firebase_auth_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.2"
   firebase_core:
     dependency: "direct main"
     description:
       name: firebase_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.1.0"
+    version: "1.1.1"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.2"
+    version: "1.0.3"
   firebase_database:
     dependency: "direct main"
     description:
@@ -207,6 +228,27 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_facebook_auth:
+    dependency: "direct main"
+    description:
+      name: flutter_facebook_auth
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.4.0"
+  flutter_facebook_auth_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.6.0"
+  flutter_facebook_auth_web:
+    dependency: transitive
+    description:
+      name: flutter_facebook_auth_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.6.0"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -236,6 +278,34 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.1"
+  google_sign_in:
+    dependency: "direct main"
+    description:
+      name: google_sign_in
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "5.0.3"
+  google_sign_in_platform_interface:
+    dependency: transitive
+    description:
+      name: google_sign_in_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
+  google_sign_in_web:
+    dependency: transitive
+    description:
+      name: google_sign_in_web
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.10.0"
+  http_parser:
+    dependency: transitive
+    description:
+      name: http_parser
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   image:
     dependency: transitive
     description:
@@ -248,6 +318,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.17.0"
   js:
     dependency: transitive
     description:
@@ -339,6 +416,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.0"
+  quiver:
+    dependency: transitive
+    description:
+      name: quiver
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -451,4 +535,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.12.0 <3.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=2.0.0"

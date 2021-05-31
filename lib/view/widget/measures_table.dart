@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
-import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
+import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics.dart';
 
 class MeasuresTable {
 

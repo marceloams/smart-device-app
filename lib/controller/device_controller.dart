@@ -1,6 +1,6 @@
-import 'package:realtimedatabase_teste/controller/database_controller.dart';
+import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
-import 'package:realtimedatabase_teste/model/devices_characteristics.dart';
+import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class DeviceController {

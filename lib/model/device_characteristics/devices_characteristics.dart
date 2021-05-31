@@ -1,7 +1,7 @@
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/device/dht11_sensor.dart';
 import 'package:realtimedatabase_teste/model/device/presence_sensor.dart';
-import 'package:realtimedatabase_teste/model/devices_characteristics_base.dart';
+import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics_base.dart';
 
 class DevicesCharacteristics extends DevicesCharacteristicsBase{
 

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:realtimedatabase_teste/controller/database_controller.dart';
+import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 

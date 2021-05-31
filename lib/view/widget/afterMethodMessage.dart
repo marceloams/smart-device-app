@@ -31,13 +31,29 @@ class AfterMethodMessage {
     });
   }
 
-  //function that executes when update is a failure
   void onFail(){
     //snack bar with failure information
     ScaffoldMessenger.of(_context).showSnackBar(
         SnackBar(
             content: Text('Fail to  $_methodMessage!'),
             backgroundColor: Colors.red,
+            duration: Duration(seconds: 2)
+        )
+    );
+  }
+
+  void custom(Color bgColor, Color fontColor){
+    //snack bar with failure information
+    ScaffoldMessenger.of(_context).showSnackBar(
+        SnackBar(
+            content: Text(
+              '$_methodMessage',
+              style: TextStyle(
+                color: fontColor
+              ),
+            ),
+            backgroundColor: bgColor,
+
             duration: Duration(seconds: 2)
         )
     );

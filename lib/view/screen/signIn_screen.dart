@@ -1,6 +1,9 @@
 import 'package:auth_buttons/auth_buttons.dart' show GoogleAuthButton, FacebookAuthButton;
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/view/screen/home_screen.dart';
+import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 import 'signUp_screen.dart';
 
 
@@ -20,6 +23,23 @@ class _SignInScreenState extends State<SignInScreen> {
   //controllers to get info from text fields
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
+
+  //user controller
+  final UserController _userController = UserController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    FirebaseAuth.instance
+        .authStateChanges()
+        .listen((User user) {
+      if (user != null) {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +117,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         textAlign: TextAlign.right,
                       ),
                       padding: EdgeInsets.zero,
-                      onPressed: () {},
+                      onPressed: () {
+                        if(_emailController.text.isEmpty && _emailController.text.contains('@')){ //verify if email input is empty
+                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
+                          afterMethodMessage.custom(Colors.amber, Colors.black);
+                        } else {
+                          _userController.recoveryPass(_emailController.text); //method to recovery email
+                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox', 0);
+                          afterMethodMessage.custom(Colors.blue, Colors.white);
+                        }
+                      },
                     ),
                   ),
                   SizedBox(height: 16.0),
@@ -114,8 +143,15 @@ class _SignInScreenState extends State<SignInScreen> {
                           borderRadius: BorderRadius.circular(10.0)
                       ),
                       onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (context) => HomeScreen()));
+                        if(_formKey.currentState.validate()){
+                          // Navigator.of(context).pushReplacement(
+                          //     MaterialPageRoute(builder: (context) => HomeScreen()));
+                          setState(() {
+                            //create a AfterMethodMessage
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
+                            _userController.signInEmail(_emailController.text, _passController.text, afterMethodMessage);
+                          });
+                        }
                       },
                     ),
                   ),
@@ -123,13 +159,25 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(
                     height: 44.0,
                     child: GoogleAuthButton(
-                        onPressed: () {}, darkMode: false),
+                        onPressed: () {
+                          //create a AfterMethodMessage
+                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
+                          _userController.signInGoogle(afterMethodMessage);
+                        },
+                        darkMode: false
+                    ),
                   ),
                   SizedBox(height: 16.0),
                   SizedBox(
                     height: 44.0,
                     child: FacebookAuthButton(
-                        onPressed: () {}, darkMode: false),
+                        onPressed: () {
+                          //create a AfterMethodMessage
+                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
+                          _userController.signInFacebook(afterMethodMessage);
+                        },
+                        darkMode: false
+                    ),
                   )
                 ],
               ),
@@ -185,7 +233,16 @@ class _SignInScreenState extends State<SignInScreen> {
                             textAlign: TextAlign.right,
                           ),
                           padding: EdgeInsets.zero,
-                          onPressed: () {},
+                          onPressed: () {
+                            if(_emailController.text.isEmpty){ //verify if email input is empty
+                              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
+                              afterMethodMessage.custom(Colors.amber, Colors.black);
+                            } else {
+                              _userController.recoveryPass(_emailController.text); //method to recovery email
+                              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox!', 0);
+                              afterMethodMessage.custom(Colors.green, Colors.white);
+                            }
+                          },
                         ),
                       ),
                       SizedBox(height: 16.0),

@@ -1,5 +1,5 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -23,8 +23,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   //controller to validate
   final _pass2Controller = TextEditingController();
 
-  //File to save user image
-  File userImg;
+  //user controller
+  final UserController userController = UserController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            // if (_formKey.currentState.validate()) {
-            // }
 
-            //create a AfterMethodMessage
-            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign up!', 2);
+            Map<String, dynamic> userMap = {
+              'name': _nameController.text,
+              'email': _emailController.text
+            };
 
-            afterMethodMessage.onSuccess();
+            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Sign Up', 0);
 
+            if (_formKey.currentState.validate()) {
+              userController.signUpEmail(userMap: userMap, pass: _passController.text, afterMethodMessage: afterMethodMessage);
+            }
           },
           child: Icon(Icons.save),
           backgroundColor: Theme.of(context).primaryColor,

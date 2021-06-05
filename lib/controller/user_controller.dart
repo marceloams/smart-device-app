@@ -11,6 +11,8 @@ class UserController {
 
   static UserData userData = UserData();
 
+  static User userFirebase;
+
   UserCredential userCredential;
 
   AuthController authController = AuthController();
@@ -21,19 +23,26 @@ class UserController {
     isLoading ? isLoading = false : isLoading = true;
   }
 
-  loadUser(){}
+  loadUser(User userFire) async{
+    print('loadingUser... ${userFire.uid}');
+    userFirebase = userFire;
+    DocumentSnapshot<Map<String,dynamic>> userDoc = await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).get();
+    userData.setFromMap(userDoc.data());
+  }
 
   signInEmail(String email, String password, AfterMethodMessage afterMethodMessage) async{
     userCredential = await authController.signInEmail(email, password, afterMethodMessage);
+    loadUser(userCredential.user);
   }
 
   signInGoogle(AfterMethodMessage afterMethodMessage) async {
     userCredential = await authController.signInGoogle(afterMethodMessage);
+    userFirebase = userCredential.user;
 
     Map<String, dynamic> userMap = {
-      'id': userCredential.user.uid,
-      'name': userCredential.user.displayName,
-      'email': userCredential.user.email,
+      'id': userFirebase.uid,
+      'name': userFirebase.displayName,
+      'email': userFirebase.email,
       'avatar': 'avatar'
     };
 
@@ -42,11 +51,12 @@ class UserController {
 
   signInFacebook(AfterMethodMessage afterMethodMessage) async {
     userCredential = await authController.signInFacebook(afterMethodMessage);
+    userFirebase = userCredential.user;
 
     Map<String, dynamic> userMap = {
-      'id': userCredential.user.uid,
-      'name': userCredential.user.displayName,
-      'email': userCredential.user.email,
+      'id': userFirebase.uid,
+      'name': userFirebase.displayName,
+      'email': userFirebase.email,
       'avatar': 'avatar'
     };
 
@@ -60,6 +70,7 @@ class UserController {
   void recoveryPass(String email) {
     auth.sendPasswordResetEmail(email: email); //command to reset email
   }
+
   void signUpEmail({@required Map<String, dynamic> userMap, @required String pass, @required AfterMethodMessage afterMethodMessage}) async {
 
     //try to create an user
@@ -95,6 +106,29 @@ class UserController {
     await FirebaseFirestore.instance.collection('users').doc(userMap['id']).set(userMap); //save data on the firebase
   }
 
-  updateUser(){}
+  //private method to save the user info
+  Future<Null> _saveUpdateData(Map<String, dynamic> userMap) async{
+
+  }
+
+  void updateUser({@required Map<String, dynamic> userMap, @required AfterMethodMessage afterMethodMessage}) async {
+    try{
+      if(userMap['email'] != null) {
+        userData.setFromMap(userMap);
+        await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).update(userMap);
+        userFirebase.updateEmail(userMap['email']);
+        signOut();
+        afterMethodMessage.methodMessage = 'update email. Please sign in again';
+        afterMethodMessage.onSuccess();
+      } else {
+        userData.setFromMap(userMap);
+        await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).update(userMap);
+        afterMethodMessage.onSuccess();
+      }
+    }catch(e){
+      print(e);
+      afterMethodMessage.onFail();
+    }
+  }
 
 }

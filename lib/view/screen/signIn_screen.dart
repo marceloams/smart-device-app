@@ -35,6 +35,8 @@ class _SignInScreenState extends State<SignInScreen> {
         .authStateChanges()
         .listen((User user) {
       if (user != null) {
+        _userController.loadUser(user);
+        //_userController.loadUser();
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => HomeScreen()));
       }

@@ -7,11 +7,11 @@ class UserData {
   List<String> devices = [];
 
   void setFromMap(Map<dynamic, dynamic> m) {
-    id = m['id'];
-    name = m['name'];
-    email = m['email'];
-    avatar = m['avatar'];
-    devices = m['devices'];
+    if(m['id'] != null) id = m['id'];
+    if(m['name'] != null) name = m['name'];
+    if(m['email'] != null) email = m['email'];
+    if(m['avatar'] != null) avatar = m['avatar'];
+    if(m['devices'] != null) devices = m['devices'];
   }
 
   Map<dynamic, dynamic> getAsMap (){

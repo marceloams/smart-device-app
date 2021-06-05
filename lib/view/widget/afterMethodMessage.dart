@@ -5,16 +5,16 @@ import 'package:realtimedatabase_teste/view/screen/home_screen.dart';
 class AfterMethodMessage {
 
   BuildContext _context;
-  String _methodMessage;
-  int _numberOfPops;
+  String methodMessage;
+  int numberOfPops;
 
-  AfterMethodMessage(this._context, this._methodMessage, this._numberOfPops); //function that executes when update is a success
+  AfterMethodMessage(this._context, this.methodMessage, this.numberOfPops); //function that executes when update is a success
 
   void onSuccess(){
 
     ScaffoldMessenger.of(_context).showSnackBar(
         SnackBar(
-            content: Text('Success to $_methodMessage!'),
+            content: Text('Success to $methodMessage!'),
             backgroundColor: Theme.of(_context).primaryColor,
             duration: Duration(seconds: 2)
         )
@@ -35,7 +35,7 @@ class AfterMethodMessage {
     //snack bar with failure information
     ScaffoldMessenger.of(_context).showSnackBar(
         SnackBar(
-            content: Text('Fail to  $_methodMessage!'),
+            content: Text('Fail to  $methodMessage!'),
             backgroundColor: Colors.red,
             duration: Duration(seconds: 2)
         )
@@ -47,7 +47,7 @@ class AfterMethodMessage {
     ScaffoldMessenger.of(_context).showSnackBar(
         SnackBar(
             content: Text(
-              '$_methodMessage',
+              '$methodMessage',
               style: TextStyle(
                 color: fontColor
               ),
@@ -60,7 +60,7 @@ class AfterMethodMessage {
   }
 
   void _doNavigatorPop(){
-    for(int i=0;i<_numberOfPops;i++){
+    for(int i=0;i<numberOfPops;i++){
       Navigator.of(_context).pop();
     }
   }

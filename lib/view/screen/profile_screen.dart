@@ -1,6 +1,6 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -33,16 +33,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
 
-  //File to save user image
-  File userImg;
+  //User Controller
+  final UserController _userController = UserController();
 
-  //bool to see if the user has been edited
-  bool _userEdited = false;
+  //bool to see if user has been edited
+  bool _nameEdited = false;
+  bool _emailEdited = false;
 
   //to put fill the textFields
   @override
   void initState() {
     super.initState();
+
+    _nameController.text = UserController.userData.name;
+    _emailController.text = UserController.userData.email;
   }
 
   @override
@@ -57,14 +61,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
             centerTitle: true,
           ),
           floatingActionButton: FloatingActionButton(
-            onPressed: (){
-              //create a AfterMethodMessage
-              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'edit', 1);
-
-              afterMethodMessage.onSuccess();
-            },
             child: Icon(Icons.save),
             backgroundColor: Theme.of(context).primaryColor,
+            onPressed: (){
+              if(_formKey.currentState.validate()){
+                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'edit', 1);
+                if(_nameEdited && _emailEdited){
+                  Map<String,dynamic> userMap = {
+                  'name': _nameController.text,
+                  'email': _emailController.text
+                  };
+                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
+                } else if(_nameEdited){
+                  Map<String,dynamic> userMap = {
+                    'name': _nameController.text
+                  };
+                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
+                }else if(_emailEdited){
+                  Map<String,dynamic> userMap = {
+                    'email': _emailController.text
+                  };
+                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
+                }
+              }
+            },
           ),
           body: LayoutBuilder(
             builder: (context, constraints){
@@ -91,25 +111,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         labelText: 'Name',
                         labelStyle: TextStyle(color: Colors.black),
                         hintText: 'Name',
-                        //border: InputBorder.none,
                       ),
+                      maxLength: 20,
                       //enabled: _nameActivated, //to control input activation
                       validator: (text){ //rule to validate the input data
                         if(text.isEmpty) return 'Invalid Name!';
                         else return null;
                       },
                       onChanged: (text){
-                        _userEdited = true;
+                        _nameEdited = true;
                       },
                     ),
-                    SizedBox(height: 16.0),
                     TextFormField( //email text field
                         controller: _emailController,
                         //focusNode: _emailFocus,
                         decoration: InputDecoration(
                           labelText: 'E-mail',
                           labelStyle: TextStyle(color: Colors.black),
-                          //border: InputBorder.none,
                         ),
                         keyboardType: TextInputType.emailAddress, //use email keyboard type
                         //enabled: _emailActivated,
@@ -118,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           else return null;
                         },
                         onChanged: (text){
-                          _userEdited = true;
+                          _emailEdited = true;
                         }
                     ),
                     Align(
@@ -130,7 +148,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           textAlign: TextAlign.right,
                         ),
                         padding: EdgeInsets.zero,
-                        onPressed: () {},
+                        onPressed: () {
+                          if(_emailController.text.isEmpty && _emailController.text.contains('@')){ //verify if email input is empty
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
+                            afterMethodMessage.custom(Colors.amber, Colors.black);
+                          } else {
+                            _userController.recoveryPass(_emailController.text); //method to recovery email
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox', 0);
+                            afterMethodMessage.custom(Colors.blue, Colors.white);
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -169,7 +196,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             else return null;
                           },
                           onChanged: (text){
-                            _userEdited = true;
+                            _nameEdited = true;
                           },
                         ),
                         SizedBox(height: 16.0),
@@ -188,7 +215,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               else return null;
                             },
                             onChanged: (text){
-                              _userEdited = true;
+                              _emailEdited = true;
                             }
                         ),
                         Align(
@@ -216,7 +243,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   //Alert Dialog to ask if the user wants to discard the changes
   Future<bool> _requestPop(){
-    if(_userEdited){
+    if(_emailEdited || _nameEdited){
       showDialog(context: context,
           builder: (context){
             return AlertDialog(

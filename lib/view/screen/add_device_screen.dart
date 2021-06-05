@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
+import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
@@ -47,9 +48,10 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
   @override
   Widget build(BuildContext context) {
 
-    //Device Controller
+    //Controllers
     DatabaseController dbController = DatabaseController();
     DeviceController deviceController = DeviceController(dbController);
+    UserController userController = UserController();
 
     RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'device');
 
@@ -67,10 +69,12 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
               //device map
               Map<String, dynamic> deviceData;
 
+              String id = DateTime.now().millisecondsSinceEpoch.toString() + UserController.userData.id;
+
               deviceData = {
                 'name': _nameController.text,
                 'mode': _mode,
-                'id': (DateTime.now().millisecondsSinceEpoch).toString(),
+                'id': id,
                 'reset': false
               };
 
@@ -78,7 +82,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
               AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'add device', 2);
 
               deviceController.addDevice(deviceData, afterMethodMessage);
-
+              userController.addDevice(id);
             }
           },
           child: Icon(Icons.add),

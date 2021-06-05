@@ -81,18 +81,34 @@ class _HomeScreenState extends State<HomeScreen> {
                     _list=snapshot.value;
                     //Now we're just checking if document is not null then add it to another map called "item".
                     _list.forEach((key, value) {
-                      if(value != null && !value['reset']) //check if device has been reseted
+                      if(value != null && !value['reset'] && UserController.userData.devices.contains(value['id'])) //check if device has been reseted and if belongs to user
                         item[key] = value;
                     });
 
                     //loading items to devices List
                     deviceController.loadDevices(item);
 
-                    return item == null
+                    return item.isEmpty
                     //return sizedbox if there's nothing in database.
-                        ? SizedBox()
+                    ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.mood_bad,
+                          size: 150,
+                          color: Colors.red
+                        ),
+                        Text(
+                          "You don't have any device!",
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 25
+                          ),
+                        )
+                      ],
+                    )
                         //otherwise return a list of widgets.
-                        : Expanded(
+                    : Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30.0)

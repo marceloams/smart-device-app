@@ -23,11 +23,24 @@ class UserController {
     isLoading ? isLoading = false : isLoading = true;
   }
 
-  loadUser(User userFire) async{
-    print('loadingUser... ${userFire.uid}');
+  Future<Null> loadUser(User userFire) async{
+    print('loading user...');
     userFirebase = userFire;
+    List<String> devicesList = [];
+    Map<String, dynamic> userMap;
+
     DocumentSnapshot<Map<String,dynamic>> userDoc = await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).get();
-    userData.setFromMap(userDoc.data());
+    userMap = userDoc.data();
+
+    QuerySnapshot<Map<String,dynamic>> devicesDoc = await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).collection('devices').get();
+    devicesDoc.docs.forEach((e) {
+      devicesList.add(e.id);
+    });
+    userMap['devices'] = devicesList;
+
+    print('devices after loading: ${devicesList}');
+
+    userData.setFromMap(userMap);
   }
 
   signInEmail(String email, String password, AfterMethodMessage afterMethodMessage) async{
@@ -106,11 +119,6 @@ class UserController {
     await FirebaseFirestore.instance.collection('users').doc(userMap['id']).set(userMap); //save data on the firebase
   }
 
-  //private method to save the user info
-  Future<Null> _saveUpdateData(Map<String, dynamic> userMap) async{
-
-  }
-
   void updateUser({@required Map<String, dynamic> userMap, @required AfterMethodMessage afterMethodMessage}) async {
     try{
       if(userMap['email'] != null) {
@@ -128,6 +136,25 @@ class UserController {
     }catch(e){
       print(e);
       afterMethodMessage.onFail();
+    }
+  }
+  
+  void addDevice(String id) async{
+    try {
+      Map<String, dynamic> deviceMap = {
+        'id': id
+      };
+      await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).collection('devices').doc(id).set(deviceMap).then((value) => {userData.devices.add(id)});
+    } catch (e){
+      print(e);
+    }
+  }
+
+  void deleteDevice(String id) async{
+    try {
+      await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).collection('devices').doc(id).delete().then((value) => {userData.devices.remove(id)});
+    } catch (e){
+      print(e);
     }
   }
 

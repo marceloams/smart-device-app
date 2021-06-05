@@ -33,10 +33,9 @@ class _SignInScreenState extends State<SignInScreen> {
     super.initState();
     FirebaseAuth.instance
         .authStateChanges()
-        .listen((User user) {
+        .listen((User user) async {
       if (user != null) {
-        _userController.loadUser(user);
-        //_userController.loadUser();
+        await _userController.loadUser(user);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(builder: (context) => HomeScreen()));
       }

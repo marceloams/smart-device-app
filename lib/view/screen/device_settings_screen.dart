@@ -210,70 +210,74 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                     children: [
                       SizedBox(
                         height: 50.0,
-                        child: RaisedButton(
+                        child: ElevatedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.copy,
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
+                              Text(
+                                '  Copy Id',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0
+                                ),
+                              ),
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.blueGrey,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.copy,
-                                  color: Colors.white,
-                                  size: 20.0,
-                                ),
-                                Text(
-                                  '  Copy Id',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0
-                                  ),
-                                ),
-                              ],
-                            ),
-                            color: Colors.blueGrey,
-                            onPressed: (){
-                              FlutterClipboard.copy(_idController.text).then((value){
-                                //snack bar with failure information
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                        content: Text('Copied to Clipboard!'),
-                                        backgroundColor: Colors.blueGrey,
-                                        duration: Duration(seconds: 2)
-                                    )
-                                );
-                              });
-                            }
+                            )
+                          ),
+                          onPressed: (){
+                            FlutterClipboard.copy(_idController.text).then((value){
+                              //snack bar with failure information
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                      content: Text('Copied to Clipboard!'),
+                                      backgroundColor: Colors.blueGrey,
+                                      duration: Duration(seconds: 2)
+                                  )
+                              );
+                            });
+                          },
                         ),
                       ),
                       SizedBox(height: 25.0),
                       SizedBox(
                         height: 50.0,
-                        child: RaisedButton(
+                        child: ElevatedButton(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                                size: 20.0,
+                              ),
+                              Text(
+                                '  Delete Device',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20.0
+                                ),
+                              ),
+                            ],
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Colors.red,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                  size: 20.0,
-                                ),
-                                Text(
-                                  '  Delete Device',
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20.0
-                                  ),
-                                ),
-                              ],
-                            ),
-                            color: Colors.red,
-                            onPressed: (){
-                              deleteDeviceAlert(context, deviceData);
-                            }
+                            )
+                          ),
+                          onPressed: (){
+                            deleteDeviceAlert(context, deviceData);
+                          },
                         ),
                       )
                     ],
@@ -391,70 +395,74 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
                         children: [
                           SizedBox(
                             height: 50.0,
-                            child: RaisedButton(
+                            child: ElevatedButton(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.copy,
+                                    color: Colors.white,
+                                    size: 20.0,
+                                  ),
+                                  Text(
+                                    '  Copy Id',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.blueGrey,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.copy,
-                                      color: Colors.white,
-                                      size: 20.0,
-                                    ),
-                                    Text(
-                                      '  Copy Id',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                color: Colors.blueGrey,
-                                onPressed: (){
-                                  FlutterClipboard.copy(_idController.text).then((value){
-                                    //snack bar with failure information
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            content: Text('Copied to Clipboard!'),
-                                            backgroundColor: Colors.blueGrey,
-                                            duration: Duration(seconds: 2)
-                                        )
-                                    );
-                                  });
-                                }
+                                )
+                              ),
+                              onPressed: (){
+                                FlutterClipboard.copy(_idController.text).then((value){
+                                  //snack bar with failure information
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content: Text('Copied to Clipboard!'),
+                                          backgroundColor: Colors.blueGrey,
+                                          duration: Duration(seconds: 2)
+                                      )
+                                  );
+                                });
+                              },
                             ),
                           ),
                           SizedBox(height: 25.0),
                           SizedBox(
                             height: 50.0,
-                            child: RaisedButton(
+                            child: ElevatedButton(
+                              child:  Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.delete,
+                                    color: Colors.white,
+                                    size: 20.0,
+                                  ),
+                                  Text(
+                                    '  Delete Device',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 20.0
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.red,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10)
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                      size: 20.0,
-                                    ),
-                                    Text(
-                                      '  Delete Device',
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                color: Colors.red,
-                                onPressed: (){
-                                  deleteDeviceAlert(context, deviceData);
-                                }
+                                )
+                              ),
+                              onPressed: (){
+                                deleteDeviceAlert(context, deviceData);
+                              },
                             ),
                           )
                         ],

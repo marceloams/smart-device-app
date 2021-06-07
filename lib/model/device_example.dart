@@ -1,6 +1,3 @@
-import 'package:realtimedatabase_teste/model/device/device_data.dart';
-import 'package:realtimedatabase_teste/model/device/dht11_sensor.dart';
-
 class DeviceExample {
   Map<dynamic,dynamic> devices;
 

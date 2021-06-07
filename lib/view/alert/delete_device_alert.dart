@@ -48,7 +48,7 @@ void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
           height: 250.0,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SizedBox(
                 height: 25.0,
@@ -80,35 +80,44 @@ void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
                 ),
               ),
               SizedBox(height: 16.0),
-              SizedBox(
-                height: 50.0,
-                child: RaisedButton(
-                  child: Text(
-                    'YES',
-                    style: TextStyle(fontSize: 18.0, color: Colors.white),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  SizedBox(
+                      height: 50.0,
+                      child: ElevatedButton(
+                        child: Text(
+                          'YES',
+                          style: TextStyle(fontSize: 18.0, color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor
+                        ),
+                        onPressed: (){
+                          //create a AfterMethodMessage
+                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'delete device', 3);
+                          deviceController.deleteDevice(deviceData.id, afterMethodMessage);
+                          userController.deleteDevice(deviceData.id);
+                        },
+                      )
                   ),
-                  color: Theme.of(context).primaryColor,
-                  onPressed: (){
-                    //create a AfterMethodMessage
-                    AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'delete device', 3);
-                    deviceController.deleteDevice(deviceData.id, afterMethodMessage);
-                    userController.deleteDevice(deviceData.id);
-                  },
-                ),
-              ),
-              SizedBox(height: 16.0),
-              SizedBox(
-                height: 50.0,
-                child:  RaisedButton(
-                  child: Text(
-                    'NO',
-                    style: TextStyle(fontSize: 18.0, color: Colors.white),
-                  ),
-                  color: Theme.of(context).primaryColor,
-                  onPressed: (){
-                    Navigator.of(context).pop(); //close alert dialog
-                  },
-                ),
+                  SizedBox(height: 16.0),
+                  SizedBox(
+                      height: 50.0,
+                      child: ElevatedButton(
+                        child: Text(
+                          'NO',
+                          style: TextStyle(fontSize: 18.0, color: Colors.white),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor
+                        ),
+                        onPressed: (){
+                          Navigator.of(context).pop();
+                        },
+                      )
+                  )
+                ],
               ),
               SizedBox(height: 5.0),
               Text(

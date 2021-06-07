@@ -1,4 +1,3 @@
-import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -25,8 +24,6 @@ class _HomeScreenLocalState extends State<HomeScreenLocal> {
     //Controllers
     DatabaseController dbController = DatabaseController();
     DeviceController deviceController = DeviceController(dbController);
-
-    var dbReference = deviceController.dbController.databaseReference;
     
     //example
     DeviceExample deviceExample = DeviceExample();
@@ -51,11 +48,11 @@ class _HomeScreenLocalState extends State<HomeScreenLocal> {
             }
         ),
         actions: <Widget>[
-          FlatButton(
+          TextButton(
             child: Icon(
-                Icons.logout
+              Icons.logout,
+              color: Colors.white,
             ),
-            textColor: Colors.white,
             onPressed: (){
               Navigator.of(context).pushReplacement(
                   MaterialPageRoute(

@@ -7,7 +7,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 void main() {
   // check if is running on Web
   if (kIsWeb) {
-    // initialiaze the facebook javascript SDK
+    // initialize the facebook javascript SDK
     FacebookAuth.i.webInitialize(
       appId: "827295831518838",
       cookie: true,

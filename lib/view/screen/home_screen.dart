@@ -47,11 +47,11 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Icon(
-                  Icons.logout
+                Icons.logout,
+                color: Colors.white,
               ),
-              textColor: Colors.white,
               onPressed: () async {
                 await userController.signOut();
                 Navigator.of(context).pushReplacement(
@@ -60,7 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                 );
               },
-            ),
+            )
           ],
         ),
         body: Container(

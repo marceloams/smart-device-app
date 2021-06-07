@@ -24,7 +24,6 @@ class UserController {
   }
 
   Future<Null> loadUser(User userFire) async{
-    print('loading user...');
     userFirebase = userFire;
     List<String> devicesList = [];
     Map<String, dynamic> userMap;
@@ -37,8 +36,6 @@ class UserController {
       devicesList.add(e.id);
     });
     userMap['devices'] = devicesList;
-
-    print('devices after loading: ${devicesList}');
 
     userData.setFromMap(userMap);
   }

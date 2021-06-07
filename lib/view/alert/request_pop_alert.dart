@@ -20,14 +20,20 @@ class RequestPopAlert{
               title: Text("Discard $_actionMessage?"),
               content: Text("If you leave $_actionMessage will be lost."),
               actions: <Widget>[
-                FlatButton(
-                  child: Text("No"),
+                TextButton(
+                  child: Text(
+                    "No",
+                    style: TextStyle(color: Colors.black)
+                  ),
                   onPressed: (){
                     Navigator.pop(context);
                   },
                 ),
-                FlatButton(
-                  child: Text("Yes"),
+                TextButton(
+                  child: Text(
+                    "Yes",
+                    style: TextStyle(color: Colors.black)
+                  ),
                   onPressed: (){
                     Navigator.pop(context);
                     Navigator.pop(context);

@@ -47,26 +47,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(
-          title:Text('Smart Devices'),
-          centerTitle: true,
-          actions: <Widget>[
-            FlatButton(
-              child: Text(
-                'SIGN UP',
-                style: TextStyle(
-                  fontSize: 15.0,
-                ),
-              ),
-              textColor: Colors.white,
-              onPressed: (){
-                Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_context) => SignUpScreen())
-                );
-              },
-            )
-          ],
-        ),
         body: LayoutBuilder(
           builder: (context, constraints){
             return constraints.maxWidth < 760 ?
@@ -76,6 +56,15 @@ class _SignInScreenState extends State<SignInScreen> {
               child: ListView(
                 padding: EdgeInsets.all(16.0),
                 children: <Widget>[
+                  SizedBox(height: 32.0),
+                  Text(
+                    'Smart Devices',
+                    style: TextStyle(
+                        fontSize: 40.0
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 16.0),
                   Image.asset(
                     'assets/images/app_icon.png',
                     height: 128,
@@ -109,39 +98,61 @@ class _SignInScreenState extends State<SignInScreen> {
                         return null;
                     },
                   ),
-                  Align(
-                    //to align the forgot password button
-                    alignment: Alignment.centerRight,
-                    child: FlatButton(
-                      child: Text(
-                        'Forgot my password',
-                        textAlign: TextAlign.right,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextButton(
+                        child: Text(
+                          'Sign Up',
+                          style: TextStyle(
+                            color: Colors.black
+                          ),
+                        ),
+                        onPressed: (){
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (_context) => SignUpScreen())
+                          );
+                        },
                       ),
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        if(_emailController.text.isEmpty && _emailController.text.contains('@')){ //verify if email input is empty
-                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
-                          afterMethodMessage.custom(Colors.amber, Colors.black);
-                        } else {
-                          _userController.recoveryPass(_emailController.text); //method to recovery email
-                          AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox', 0);
-                          afterMethodMessage.custom(Colors.blue, Colors.white);
-                        }
-                      },
-                    ),
+                      TextButton(
+                        child: Text(
+                          'Forgot my password',
+                          style: TextStyle(
+                              color: Colors.black
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                        ),
+                        onPressed: () {
+                          if(_emailController.text.isEmpty || !_emailController.text.contains('@')){ //verify if email input is empty
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
+                            afterMethodMessage.custom(Colors.amber, Colors.black);
+                          } else {
+                            _userController.recoveryPass(_emailController.text); //method to recovery email
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox', 0);
+                            afterMethodMessage.custom(Colors.blue, Colors.white);
+                          }
+                        },
+                      ),
+                    ],
                   ),
                   SizedBox(height: 16.0),
                   SizedBox(
-                    height: 44.0,
-                    child: RaisedButton(
+                    height: 50.0,
+                    child: ElevatedButton(
                       child: Text(
                         'Sign In',
-                        style: TextStyle(fontSize: 18.0),
+                        style: TextStyle(
+                          fontSize: 18.0,
+                          color: Colors.white
+                        ),
                       ),
-                      textColor: Colors.white,
-                      color: Theme.of(context).primaryColor,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0)
+                        ),
                       ),
                       onPressed: () {
                         if(_formKey.currentState.validate()){
@@ -158,7 +169,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 16.0),
                   SizedBox(
-                    height: 44.0,
+                    height: 50.0,
                     child: GoogleAuthButton(
                         onPressed: () {
                           //create a AfterMethodMessage
@@ -170,7 +181,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   ),
                   SizedBox(height: 16.0),
                   SizedBox(
-                    height: 44.0,
+                    height: 50.0,
                     child: FacebookAuthButton(
                         onPressed: () {
                           //create a AfterMethodMessage
@@ -228,12 +239,14 @@ class _SignInScreenState extends State<SignInScreen> {
                       Align(
                         //to align the forgot password button
                         alignment: Alignment.centerRight,
-                        child: FlatButton(
+                        child: TextButton(
                           child: Text(
                             'Forgot my password',
                             textAlign: TextAlign.right,
                           ),
-                          padding: EdgeInsets.zero,
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero
+                          ),
                           onPressed: () {
                             if(_emailController.text.isEmpty){ //verify if email input is empty
                               AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
@@ -249,15 +262,19 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(height: 16.0),
                       SizedBox(
                         height: 44.0,
-                        child: RaisedButton(
+                        child: ElevatedButton(
                           child: Text(
                             'Sign In',
-                            style: TextStyle(fontSize: 18.0),
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Colors.white
+                            ),
                           ),
-                          textColor: Colors.white,
-                          color: Theme.of(context).primaryColor,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10.0)
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)
+                            ),
                           ),
                           onPressed: () {
                             Navigator.of(context).pushReplacement(

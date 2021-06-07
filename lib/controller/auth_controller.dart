@@ -24,6 +24,7 @@ class AuthController {
         afterMethodMessage.onFail();
       }
     }
+    return null;
   }
 
   Future<UserCredential> signInGoogle(AfterMethodMessage  afterMethodMessage) async {
@@ -64,6 +65,7 @@ class AuthController {
         }
       }
     }
+    return null;
   }
 
   Future<UserCredential> signInFacebook(AfterMethodMessage  afterMethodMessage) async{
@@ -79,6 +81,7 @@ class AuthController {
       } catch (e) {
         afterMethodMessage.onFail();
       }
+      return null;
   }
 
   signOut() async {

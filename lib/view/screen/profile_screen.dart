@@ -5,11 +5,9 @@ import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class ProfileScreen extends StatefulWidget {
 
-  BuildContext context;
+  final BuildContext context;
 
-  ProfileScreen(BuildContext context){
-    this.context = context;
-  }
+  ProfileScreen(this.context);
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState(context);
@@ -17,11 +15,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
-   BuildContext c;
+   final BuildContext c;
 
-  _ProfileScreenState(BuildContext context){
-    this.c = context;
-  }
+  _ProfileScreenState(this.c);
 
   //global key to access the form at the sign up button
   final _formKey = GlobalKey<FormState>();
@@ -142,12 +138,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Align(
                       //to align the forgot password button
                       alignment: Alignment.centerRight,
-                      child: FlatButton(
+                      child: TextButton(
                         child: Text(
                           'Change my password',
                           textAlign: TextAlign.right,
+                          style: TextStyle(
+                              color: Colors.black
+                          ),
                         ),
-                        padding: EdgeInsets.zero,
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero
+                        ),
                         onPressed: () {
                           if(_emailController.text.isEmpty && _emailController.text.contains('@')){ //verify if email input is empty
                             AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
@@ -221,12 +222,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Align(
                           //to align the forgot password button
                           alignment: Alignment.centerRight,
-                          child: FlatButton(
+                          child: TextButton(
                             child: Text(
                               'Change my password',
                               textAlign: TextAlign.right,
                             ),
-                            padding: EdgeInsets.zero,
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero
+                            ),
                             onPressed: () {},
                           ),
                         ),
@@ -250,14 +253,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
               title: Text("Discard Changes?"),
               content: Text("If you leave changes will be lost."),
               actions: <Widget>[
-                FlatButton(
-                  child: Text("No"),
+                TextButton(
+                  child: Text(
+                    "No",
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                  ),
                   onPressed: (){
                     Navigator.pop(context);
                   },
                 ),
-                FlatButton(
-                  child: Text("Yes"),
+                TextButton(
+                  child: Text(
+                    "Yes",
+                    style: TextStyle(
+                        color: Colors.black
+                    ),
+                  ),
                   onPressed: (){
                     Navigator.pop(context);
                     Navigator.pop(context);

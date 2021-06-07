@@ -11,15 +11,11 @@ class DevicesTile extends StatelessWidget {
 
   final displaySize;
 
-  //to make measures table
-  MeasuresTable measuresTable;
-
-  DevicesTile(this.deviceData, this.displaySize){
-    measuresTable = MeasuresTable(deviceData);
-  }
+  DevicesTile(this.deviceData, this.displaySize);
 
   @override
   Widget build(BuildContext context) {
+    MeasuresTable measuresTable = MeasuresTable(deviceData);
     return Card(
       child: Container(
         height: displaySize > 760 ? 200.0 : 150.0,

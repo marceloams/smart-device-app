@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
 
@@ -12,6 +15,7 @@ void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
   DatabaseController dbController = DatabaseController();
   DeviceController deviceController = DeviceController(dbController);
   UserController userController = UserController();
+  DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
 
   showDialog(
     context:context,
@@ -96,8 +100,12 @@ void deleteDeviceAlert(BuildContext context, DeviceData deviceData){
                         onPressed: (){
                           //create a AfterMethodMessage
                           AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'delete device', 3);
-                          deviceController.deleteDevice(deviceData.id, afterMethodMessage);
                           userController.deleteDevice(deviceData.id);
+
+                          //while firebase_database does not support web version
+                          deviceFirestoreController.deleteDevice(deviceData.id,afterMethodMessage);
+                          if(!kIsWeb)
+                            deviceController.deleteDevice(deviceData.id, afterMethodMessage);
                         },
                       )
                   ),

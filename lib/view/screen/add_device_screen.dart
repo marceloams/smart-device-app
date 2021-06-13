@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class AddDeviceScreen extends StatefulWidget {
   @override
@@ -52,6 +54,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
     DatabaseController dbController = DatabaseController();
     DeviceController deviceController = DeviceController(dbController);
     UserController userController = UserController();
+    DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
 
     RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'device');
 
@@ -81,8 +84,13 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
               //create a AfterMethodMessage
               AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'add device', 2);
 
-              deviceController.addDevice(deviceData, afterMethodMessage);
+
               userController.addDevice(id);
+
+              //while firebase_database does not support web version
+              deviceFirestoreController.addDevice(deviceData, afterMethodMessage);
+              if(!kIsWeb)
+                deviceController.addDevice(deviceData, afterMethodMessage);
             }
           },
           child: Icon(Icons.add),

@@ -1,5 +1,7 @@
 import 'package:clipboard/clipboard.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
@@ -65,6 +67,7 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
     //Device Controller
     DatabaseController dbController = DatabaseController();
     DeviceController deviceController = DeviceController(dbController);
+    DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
 
     RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'changes');
 
@@ -90,7 +93,10 @@ class _DeviceSettingsScreenState extends State<DeviceSettingsScreen> {
               //create a AfterMethodMessage
               AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'update device', 2);
 
-              deviceController.updateDevice(deviceData, afterMethodMessage);
+              //while firebase_database does not support web version
+              deviceFirestoreController.updateDevice(deviceData, afterMethodMessage);
+              if(!kIsWeb)
+                deviceController.updateDevice(deviceData, afterMethodMessage);
 
               MaterialPageRoute(
                   builder: (context)=>HomeScreen()

@@ -29,7 +29,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     FirebaseAuth.instance
         .authStateChanges()
@@ -156,8 +155,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       ),
                       onPressed: () {
                         if(_formKey.currentState.validate()){
-                          // Navigator.of(context).pushReplacement(
-                          //     MaterialPageRoute(builder: (context) => HomeScreen()));
                           setState(() {
                             //create a AfterMethodMessage
                             AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
@@ -172,7 +169,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     height: 50.0,
                     child: GoogleAuthButton(
                         onPressed: () {
-                          //create a AfterMethodMessage
                           AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
                           _userController.signInGoogle(afterMethodMessage);
                         },
@@ -184,7 +180,6 @@ class _SignInScreenState extends State<SignInScreen> {
                     height: 50.0,
                     child: FacebookAuthButton(
                         onPressed: () {
-                          //create a AfterMethodMessage
                           AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
                           _userController.signInFacebook(afterMethodMessage);
                         },
@@ -203,6 +198,15 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: ListView(
                     padding: EdgeInsets.all(16.0),
                     children: <Widget>[
+                      SizedBox(height: 32.0),
+                      Text(
+                        'Smart Devices',
+                        style: TextStyle(
+                            fontSize: 40.0
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      SizedBox(height: 32.0),
                       Image.asset(
                         'assets/images/app_icon.png',
                         height: 128,
@@ -236,32 +240,49 @@ class _SignInScreenState extends State<SignInScreen> {
                             return null;
                         },
                       ),
-                      Align(
-                        //to align the forgot password button
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          child: Text(
-                            'Forgot my password',
-                            textAlign: TextAlign.right,
+                      SizedBox(height: 8.0),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextButton(
+                            child: Text(
+                              'Sign Up',
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                            ),
+                            onPressed: (){
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(builder: (_context) => SignUpScreen())
+                              );
+                            },
                           ),
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero
+                          TextButton(
+                            child: Text(
+                              'Forgot my password',
+                              style: TextStyle(
+                                  color: Colors.black
+                              ),
+                            ),
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                            ),
+                            onPressed: () {
+                              if(_emailController.text.isEmpty || !_emailController.text.contains('@')){ //verify if email input is empty
+                                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
+                                afterMethodMessage.custom(Colors.amber, Colors.black);
+                              } else {
+                                _userController.recoveryPass(_emailController.text); //method to recovery email
+                                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox', 0);
+                                afterMethodMessage.custom(Colors.blue, Colors.white);
+                              }
+                            },
                           ),
-                          onPressed: () {
-                            if(_emailController.text.isEmpty){ //verify if email input is empty
-                              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
-                              afterMethodMessage.custom(Colors.amber, Colors.black);
-                            } else {
-                              _userController.recoveryPass(_emailController.text); //method to recovery email
-                              AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox!', 0);
-                              afterMethodMessage.custom(Colors.green, Colors.white);
-                            }
-                          },
-                        ),
+                        ],
                       ),
                       SizedBox(height: 16.0),
                       SizedBox(
-                        height: 44.0,
+                        height: 50.0,
                         child: ElevatedButton(
                           child: Text(
                             'Sign In',
@@ -277,22 +298,36 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (context) => HomeScreen()));
+                            if(_formKey.currentState.validate()){
+                              setState(() {
+                                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
+                                _userController.signInEmail(_emailController.text, _passController.text, afterMethodMessage);
+                              });
+                            }
                           },
                         ),
                       ),
                       SizedBox(height: 16.0),
                       SizedBox(
-                        height: 44.0,
+                        height: 50.0,
                         child: GoogleAuthButton(
-                            onPressed: () {}, darkMode: false),
+                          onPressed: () {
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
+                            _userController.signInGoogle(afterMethodMessage);
+                          },
+                          darkMode: false
+                        ),
                       ),
                       SizedBox(height: 16.0),
                       SizedBox(
-                        height: 44.0,
+                        height: 50.0,
                         child: FacebookAuthButton(
-                            onPressed: () {}, darkMode: false),
+                          onPressed: () {
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'sign in', 1);
+                            _userController.signInFacebook(afterMethodMessage);
+                          },
+                          darkMode: false
+                        ),
                       )
                     ],
                   ),

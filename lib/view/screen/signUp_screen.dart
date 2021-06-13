@@ -6,6 +6,7 @@ import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/model/avatar/avatar_painter.dart';
 import 'package:realtimedatabase_teste/model/avatar/avatar_svg_wrapper.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -54,9 +55,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           title:Text('Sign Up'),
           centerTitle: true,
         ),
-        floatingActionButton: FloatingActionButton(
+        floatingActionButton: kIsWeb ? Container() : FloatingActionButton(
           onPressed: () {
-
             Map<String, dynamic> userMap = {
               'name': _nameController.text,
               'email': _emailController.text,
@@ -112,6 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       )
                     ],
                   ),
+                  SizedBox(height: 16.0),
                   TextFormField( //full name text field
                       controller: _nameController,
                       decoration: InputDecoration(
@@ -173,15 +174,39 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: ListView(
                     padding: EdgeInsets.all(16.0),
                     children: <Widget>[
-                      Row(
+                      Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            Icons.person_rounded,
-                            size: 72,
+                        children: [
+                          GestureDetector(
+                            child: Container(
+                              height: 100.0,
+                              width: 100.0,
+                              child: CustomPaint(
+                                painter: AvatarPainter(avatarSvgRoot, 100.0),
+                                child: Container(),
+                              ),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            onTap: () {
+                              var l = new List.generate(
+                                  12, (_) => new Random().nextInt(100));
+                              _avatarController.text = l.join();
+                              setState(() {
+                                avatarSvgCode = multiavatar(_avatarController.text);
+                              });
+                              AvatarSvgWrapper(avatarSvgCode).generateSvg().then((value){
+                                setState(() {
+                                  avatarSvgRoot = value;
+                                });
+                              });
+                            },
                           )
                         ],
                       ),
+                      SizedBox(height: 16.0),
                       TextFormField( //full name text field
                           controller: _nameController,
                           decoration: InputDecoration(
@@ -231,7 +256,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           } else return null;
                         },
                       ),
-                      SizedBox(height: 16.0)
+                      SizedBox(height: 16.0),
+                      kIsWeb ? SizedBox(
+                        height: 50.0,
+                        child: ElevatedButton(
+                          child: Text(
+                            'Sign Up',
+                            style: TextStyle(
+                                fontSize: 18.0,
+                                color: Colors.white
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10.0)
+                            ),
+                          ),
+                          onPressed: () {
+                            Map<String, dynamic> userMap = {
+                              'name': _nameController.text,
+                              'email': _emailController.text,
+                              'avatar': _avatarController.text
+                            };
+
+                            AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Sign Up', 0);
+
+                            if (_formKey.currentState.validate()) {
+                              userController.signUpEmail(userMap: userMap, pass: _passController.text, afterMethodMessage: afterMethodMessage);
+                            }
+                          },
+                        ),
+                      ) : Container()
                     ],
                   ),
                 ),

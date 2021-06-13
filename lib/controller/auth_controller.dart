@@ -4,9 +4,18 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
+enum LoginType {
+LOGGED_WITH_EMAIL,
+LOGGED_WITH_GMAIL,
+LOGGED_WITH_FACEBOOK,
+LOGGED_FROM_LOADING
+}
+
 class AuthController {
 
   FirebaseAuth auth = FirebaseAuth.instance;
+
+  static LoginType loginType;
 
   Future<UserCredential> signInEmail(String email, String password, AfterMethodMessage  afterMethodMessage) async{
     try {
@@ -14,6 +23,7 @@ class AuthController {
           email: email,
           password: password
       );
+      loginType = LoginType.LOGGED_WITH_EMAIL;
       return userCredential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -33,6 +43,7 @@ class AuthController {
 
       try {
         final UserCredential userCredential = await auth.signInWithPopup(authProvider);
+        loginType = LoginType.LOGGED_WITH_GMAIL;
         return userCredential;
       } catch (e) {
         afterMethodMessage.onFail();
@@ -52,6 +63,7 @@ class AuthController {
 
         try {
           final UserCredential userCredential = await auth.signInWithCredential(credential);
+          loginType = LoginType.LOGGED_WITH_GMAIL;
           return userCredential;
         } on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
@@ -76,6 +88,8 @@ class AuthController {
         // Create a credential from the access token
         final facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
 
+        loginType = LoginType.LOGGED_WITH_FACEBOOK;
+
         // Once signed in, return the UserCredential
         return await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
       } catch (e) {
@@ -85,9 +99,31 @@ class AuthController {
   }
 
   signOut() async {
-    await signOutGoogle();
-    await FacebookAuth.instance.logOut();
-    await auth.signOut();
+    print(loginType);
+    try{
+      if(!kIsWeb){
+        await signOutGoogle();
+        await FacebookAuth.instance.logOut();
+        await auth.signOut();
+        return;
+      }
+      switch(loginType){
+        case LoginType.LOGGED_WITH_EMAIL:
+          await auth.signOut();
+          break;
+        case LoginType.LOGGED_WITH_GMAIL:
+          await signOutGoogle();
+          break;
+        case LoginType.LOGGED_WITH_FACEBOOK:
+          await FacebookAuth.instance.logOut();
+          await auth.signOut();
+          break;
+        default:
+          await auth.signOut();
+      }
+    } catch(e){
+      print(e);
+    }
   }
 
   signOutGoogle() async {
@@ -97,7 +133,7 @@ class AuthController {
       if (!kIsWeb) {
         await googleSignIn.signOut();
       }
-      await FirebaseAuth.instance.signOut();
+      await auth.signOut();
     } catch (e) {
       //handle error
     }

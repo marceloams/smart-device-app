@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
+import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
-class DeviceController {
+class DeviceController with ChangeNotifier {
 
     DatabaseController dbController;
 
@@ -12,6 +14,8 @@ class DeviceController {
     DevicesCharacteristics devicesCharacteristics = DevicesCharacteristics();
 
     static List<DeviceData> devices = [];
+
+    DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
 
     int getDevicesLength(){
         return devices.length;
@@ -24,6 +28,8 @@ class DeviceController {
         data.forEach((key, value) {
            _loadDevice(value);
         });
+
+        notifyListeners();
     }
 
     void _loadDevice(Map<dynamic,dynamic> data){
@@ -49,13 +55,23 @@ class DeviceController {
         devices.add(device);
     }
 
-    void addDevice(Map<String, dynamic> deviceData, AfterMethodMessage afterMethodMessage){
+    void addDevice(Map<String, dynamic> deviceData, AfterMethodMessage afterMethodMessage) async {
 
         try{
             dbController.createData(deviceData['id'], deviceData);
             afterMethodMessage.onSuccess();
         }catch(e){
             afterMethodMessage.onFail();
+        }
+    }
+
+    //while realtime_database does not support web version
+    void addDeviceFromFirestore(Map<String, dynamic> deviceData) async {
+
+        try{
+            dbController.createData(deviceData['id'], deviceData);
+        }catch(e){
+            print(e);
         }
     }
 

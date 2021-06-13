@@ -8,6 +8,7 @@ import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/model/avatar/avatar_painter.dart';
 import 'package:realtimedatabase_teste/model/avatar/avatar_svg_wrapper.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ProfileScreen extends StatefulWidget {
 
@@ -76,7 +77,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             title:Text('Profile'),
             centerTitle: true,
           ),
-          floatingActionButton: FloatingActionButton(
+          floatingActionButton: kIsWeb ? Container() : FloatingActionButton(
             child: Icon(Icons.save),
             backgroundColor: Theme.of(context).primaryColor,
             onPressed: (){
@@ -89,13 +90,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     'email': _emailController.text,
                     'avatar': _avatarController.text
                   };
+                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
                 } else if(_edited){
                   userMap = {
                   'name': _nameController.text,
                   'avatar': _avatarController.text
                   };
+                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
                 }
-                _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
               }
             },
           ),
@@ -209,12 +211,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: ListView(
                       padding: EdgeInsets.all(16.0),
                       children: <Widget>[
-                        Row(
+                        Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Icon(
-                              Icons.person_rounded,
-                              size: 72,
+                          children: [
+                            GestureDetector(
+                              child: Container(
+                                height: 100.0,
+                                width: 100.0,
+                                child: CustomPaint(
+                                  painter: AvatarPainter(avatarSvgRoot, 100.0),
+                                  child: Container(),
+                                ),
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              onTap: () {
+                                _edited = true;
+                                var l = new List.generate(
+                                    12, (_) => new Random().nextInt(100));
+                                _avatarController.text = l.join();
+                                setState(() {
+                                  avatarSvgCode = multiavatar(_avatarController.text);
+                                });
+                                AvatarSvgWrapper(avatarSvgCode).generateSvg().then((value){
+                                  setState(() {
+                                    avatarSvgRoot = value;
+                                  });
+                                });
+                              },
                             )
                           ],
                         ),
@@ -240,20 +266,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         SizedBox(height: 16.0),
                         TextFormField( //email text field
                             controller: _emailController,
-                            //focusNode: _emailFocus,
                             decoration: InputDecoration(
                               labelText: 'E-mail',
                               labelStyle: TextStyle(color: Colors.black),
-                              //border: InputBorder.none,
                             ),
                             keyboardType: TextInputType.emailAddress, //use email keyboard type
-                            //enabled: _emailActivated,
                             validator: (text){ //rule to validate the input data
                               if(text.isEmpty || !text.contains('@')) return 'Invalid E-mail!';
                               else return null;
                             },
                             onChanged: (text){
-                              _edited = true;
+                              _emailEdited = true;
                             }
                         ),
                         Align(
@@ -263,13 +286,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             child: Text(
                               'Change my password',
                               textAlign: TextAlign.right,
+                              style: TextStyle(color: Colors.black),
                             ),
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.zero
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              if(_emailController.text.isEmpty && _emailController.text.contains('@')){ //verify if email input is empty
+                                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Enter your e-mail to recover your account!', 0);
+                                afterMethodMessage.custom(Colors.amber, Colors.black);
+                              } else {
+                                _userController.recoveryPass(_emailController.text); //method to recovery email
+                                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Take a look in your e-mail inbox', 0);
+                                afterMethodMessage.custom(Colors.blue, Colors.white);
+                              }
+                            },
                           ),
                         ),
+                        SizedBox(height: 16.0),
+                        kIsWeb ? SizedBox(
+                          height: 50.0,
+                          child: ElevatedButton(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.save,
+                                  color: Colors.white
+                                ),
+                                Text(
+                                  '  Save',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.white
+                                  ),
+                                )
+                              ],
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              primary: Theme.of(context).primaryColor,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)
+                              ),
+                            ),
+                            onPressed: () {
+                              if(_formKey.currentState.validate()){
+                                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'edit', 0);
+                                Map<String,dynamic> userMap;
+                                if(_emailEdited){
+                                  userMap = {
+                                    'name': _nameController.text,
+                                    'email': _emailController.text,
+                                    'avatar': _avatarController.text
+                                  };
+                                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
+                                } else if(_edited){
+                                  userMap = {
+                                    'name': _nameController.text,
+                                    'avatar': _avatarController.text
+                                  };
+                                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
+                                }
+                              }
+                            },
+                          ),
+                        ) : Container()
                       ],
                     ),
                   ),

@@ -1,6 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:multiavatar/multiavatar.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
+import 'package:realtimedatabase_teste/model/avatar/avatar_painter.dart';
+import 'package:realtimedatabase_teste/model/avatar/avatar_svg_wrapper.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -32,8 +38,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
   //User Controller
   final UserController _userController = UserController();
 
+   //create avatar profile
+   String avatarSvgCode;
+   DrawableRoot avatarSvgRoot;
+   final _avatarController = TextEditingController();
+
   //bool to see if user has been edited
-  bool _nameEdited = false;
+  bool _edited = false;
   bool _emailEdited = false;
 
   //to put fill the textFields
@@ -43,6 +54,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     _nameController.text = UserController.userData.name;
     _emailController.text = UserController.userData.email;
+    _avatarController.text = UserController.userData.avatar;
+
+    avatarSvgCode = multiavatar(_avatarController.text);
+
+    AvatarSvgWrapper(avatarSvgCode).generateLogo().then((value) {
+      setState(() {
+        avatarSvgRoot = value;
+      });
+    });
   }
 
   @override
@@ -61,24 +81,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
             backgroundColor: Theme.of(context).primaryColor,
             onPressed: (){
               if(_formKey.currentState.validate()){
-                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'edit', 1);
-                if(_nameEdited && _emailEdited){
-                  Map<String,dynamic> userMap = {
+                AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'edit', 0);
+                Map<String,dynamic> userMap;
+                if(_emailEdited){
+                  userMap = {
+                    'name': _nameController.text,
+                    'email': _emailController.text,
+                    'avatar': _avatarController.text
+                  };
+                } else if(_edited){
+                  userMap = {
                   'name': _nameController.text,
-                  'email': _emailController.text
+                  'avatar': _avatarController.text
                   };
-                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
-                } else if(_nameEdited){
-                  Map<String,dynamic> userMap = {
-                    'name': _nameController.text
-                  };
-                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
-                }else if(_emailEdited){
-                  Map<String,dynamic> userMap = {
-                    'email': _emailController.text
-                  };
-                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
                 }
+                _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
               }
             },
           ),
@@ -90,43 +107,63 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: ListView(
                   padding: EdgeInsets.all(16.0),
                   children: <Widget>[
-                    Row(
+                    Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Icon(
-                          Icons.person_rounded,
-                          size: 72,
+                      children: [
+                        GestureDetector(
+                          child: Container(
+                            height: 100.0,
+                            width: 100.0,
+                            child: CustomPaint(
+                              painter: AvatarPainter(avatarSvgRoot, 100.0),
+                              child: Container(),
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          onTap: () {
+                            _edited = true;
+                            var l = new List.generate(
+                                12, (_) => new Random().nextInt(100));
+                            _avatarController.text = l.join();
+                            setState(() {
+                              avatarSvgCode = multiavatar(_avatarController.text);
+                            });
+                            AvatarSvgWrapper(avatarSvgCode).generateSvg().then((value){
+                              setState(() {
+                                avatarSvgRoot = value;
+                              });
+                            });
+                          },
                         )
                       ],
                     ),
                     SizedBox(height: 16.0),
                     TextFormField( //full name text field
                       controller: _nameController,
-                      //focusNode: _nameFocus,
                       decoration: InputDecoration(
                         labelText: 'Name',
                         labelStyle: TextStyle(color: Colors.black),
                         hintText: 'Name',
                       ),
                       maxLength: 20,
-                      //enabled: _nameActivated, //to control input activation
                       validator: (text){ //rule to validate the input data
                         if(text.isEmpty) return 'Invalid Name!';
                         else return null;
                       },
                       onChanged: (text){
-                        _nameEdited = true;
+                        _edited = true;
                       },
                     ),
-                    TextFormField( //email text field
+                    TextFormField(
                         controller: _emailController,
-                        //focusNode: _emailFocus,
                         decoration: InputDecoration(
                           labelText: 'E-mail',
                           labelStyle: TextStyle(color: Colors.black),
                         ),
                         keyboardType: TextInputType.emailAddress, //use email keyboard type
-                        //enabled: _emailActivated,
                         validator: (text){ //rule to validate the input data
                           if(text.isEmpty || !text.contains('@')) return 'Invalid E-mail!';
                           else return null;
@@ -197,7 +234,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             else return null;
                           },
                           onChanged: (text){
-                            _nameEdited = true;
+                            _edited = true;
                           },
                         ),
                         SizedBox(height: 16.0),
@@ -216,7 +253,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               else return null;
                             },
                             onChanged: (text){
-                              _emailEdited = true;
+                              _edited = true;
                             }
                         ),
                         Align(
@@ -246,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   //Alert Dialog to ask if the user wants to discard the changes
   Future<bool> _requestPop(){
-    if(_emailEdited || _nameEdited){
+    if(_edited){
       showDialog(context: context,
           builder: (context){
             return AlertDialog(

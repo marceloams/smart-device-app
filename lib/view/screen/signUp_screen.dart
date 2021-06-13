@@ -1,5 +1,10 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:multiavatar/multiavatar.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
+import 'package:realtimedatabase_teste/model/avatar/avatar_painter.dart';
+import 'package:realtimedatabase_teste/model/avatar/avatar_svg_wrapper.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -26,6 +31,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   //user controller
   final UserController userController = UserController();
 
+  //create avatar profile
+  String avatarSvgCode = multiavatar('X-SLAYER');
+  DrawableRoot avatarSvgRoot;
+  final _avatarController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    AvatarSvgWrapper(avatarSvgCode).generateLogo().then((value) {
+      setState(() {
+        avatarSvgRoot = value;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +59,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
             Map<String, dynamic> userMap = {
               'name': _nameController.text,
-              'email': _emailController.text
+              'email': _emailController.text,
+              'avatar': _avatarController.text
             };
 
             AfterMethodMessage afterMethodMessage = AfterMethodMessage(context, 'Sign Up', 0);
@@ -59,12 +80,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
               child: ListView(
                 padding: EdgeInsets.all(16.0),
                 children: <Widget>[
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(
-                        Icons.person_rounded,
-                        size: 72,
+                    children: [
+                      GestureDetector(
+                        child: Container(
+                          height: 100.0,
+                          width: 100.0,
+                          child: CustomPaint(
+                            painter: AvatarPainter(avatarSvgRoot, 100.0),
+                            child: Container(),
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        onTap: () {
+                          var l = new List.generate(
+                              12, (_) => new Random().nextInt(100));
+                          _avatarController.text = l.join();
+                          setState(() {
+                            avatarSvgCode = multiavatar(_avatarController.text);
+                          });
+                          AvatarSvgWrapper(avatarSvgCode).generateSvg().then((value){
+                            setState(() {
+                              avatarSvgRoot = value;
+                            });
+                          });
+                        },
                       )
                     ],
                   ),

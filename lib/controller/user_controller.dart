@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:realtimedatabase_teste/controller/auth_controller.dart';
 import 'package:realtimedatabase_teste/model/user/user_data.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
@@ -15,9 +16,17 @@ class UserController {
 
   UserCredential userCredential;
 
-  AuthController authController = AuthController();
+  AuthController authController;
 
-  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth;
+
+  FirebaseFirestore firestore;
+
+  UserController({this.auth, this.userCredential, this.firestore, this.authController}){
+    if(this.auth == null) auth = FirebaseAuth.instance;
+    if(this.authController == null) authController = AuthController();
+    if(this.firestore == null) firestore = FirebaseFirestore.instance;
+  }
 
   _flipIsLoading(){
     isLoading ? isLoading = false : isLoading = true;
@@ -28,25 +37,31 @@ class UserController {
     List<String> devicesList = [];
     Map<String, dynamic> userMap;
 
-    DocumentSnapshot<Map<String,dynamic>> userDoc = await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).get();
+    DocumentSnapshot<Map<String,dynamic>> userDoc = await firestore.collection('users').doc(userFirebase.uid).get();
     userMap = userDoc.data();
 
-    QuerySnapshot<Map<String,dynamic>> devicesDoc = await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).collection('devices').get();
-    devicesDoc.docs.forEach((e) {
-      devicesList.add(e.id);
-    });
-    userMap['devices'] = devicesList;
+    if(userMap != null){
+      QuerySnapshot<Map<String,dynamic>> devicesDoc = await firestore.collection('users').doc(userFirebase.uid).collection('devices').get();
+      devicesDoc.docs.forEach((e) {
+        devicesList.add(e.id);
+      });
+      userMap['devices'] = devicesList;
 
-    userData.setFromMap(userMap);
+      userData.setFromMap(userMap);
+    }
   }
 
-  signInEmail(String email, String password, AfterMethodMessage afterMethodMessage) async{
+  Future<Null> signInEmail(String email, String password, AfterMethodMessage afterMethodMessage) async{
     userCredential = await authController.signInEmail(email, password, afterMethodMessage);
     loadUser(userCredential.user);
   }
 
-  signInGoogle(AfterMethodMessage afterMethodMessage) async {
-    userCredential = await authController.signInGoogle(afterMethodMessage);
+  signInGoogle(AfterMethodMessage afterMethodMessage, {GoogleSignIn googleSignIn}) async {
+    if(googleSignIn == null){
+      userCredential = await authController.signInGoogle(afterMethodMessage);
+    } else {
+      userCredential = await authController.signInGoogle(afterMethodMessage, googleSignInAux: googleSignIn);
+    }
     userFirebase = userCredential.user;
 
     Map<String, dynamic> userMap = {
@@ -113,21 +128,21 @@ class UserController {
   //private method to save the user info
   Future<Null> _saveUserData(Map<String, dynamic> userMap) async{
     userData.setFromMap(userMap);
-    await FirebaseFirestore.instance.collection('users').doc(userMap['id']).set(userMap); //save data on the firebase
+    await firestore.collection('users').doc(userMap['id']).set(userMap); //save data on the firebase
   }
 
   void updateUser({@required Map<String, dynamic> userMap, @required AfterMethodMessage afterMethodMessage}) async {
     try{
       if(userMap['email'] != null) {
         userData.setFromMap(userMap);
-        await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).update(userMap);
+        await firestore.collection('users').doc(userFirebase.uid).update(userMap);
         userFirebase.updateEmail(userMap['email']);
         signOut();
         afterMethodMessage.methodMessage = 'update email. Please sign in again';
         afterMethodMessage.onSuccess();
       } else {
         userData.setFromMap(userMap);
-        await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).update(userMap);
+        await firestore.collection('users').doc(userFirebase.uid).update(userMap);
         afterMethodMessage.onSuccess();
       }
     }catch(e){
@@ -136,20 +151,22 @@ class UserController {
     }
   }
   
-  void addDevice(String id) async{
+  Future<Null> addDevice(String id) async{
     try {
+      if(id == null) return;
       Map<String, dynamic> deviceMap = {
         'id': id
       };
-      await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).collection('devices').doc(id).set(deviceMap).then((value) => {userData.devices.add(id)});
+      await firestore.collection('users').doc(userFirebase.uid).collection('devices').doc(id).set(deviceMap).then((value) => {userData.devices.add(id)});
     } catch (e){
       print(e);
     }
   }
 
-  void deleteDevice(String id) async{
+  Future<Null> deleteDevice(String id) async{
     try {
-      await FirebaseFirestore.instance.collection('users').doc(userFirebase.uid).collection('devices').doc(id).delete().then((value) => {userData.devices.remove(id)});
+      if(id == null) return;
+      await firestore.collection('users').doc(userFirebase.uid).collection('devices').doc(id).delete().then((value) => {userData.devices.remove(id)});
     } catch (e){
       print(e);
     }

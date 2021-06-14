@@ -13,7 +13,11 @@ LOGGED_FROM_LOADING
 
 class AuthController {
 
-  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth;
+
+  AuthController({this.auth}){
+    if(this.auth == null) auth = FirebaseAuth.instance;
+  }
 
   static LoginType loginType;
 
@@ -37,7 +41,7 @@ class AuthController {
     return null;
   }
 
-  Future<UserCredential> signInGoogle(AfterMethodMessage  afterMethodMessage) async {
+  Future<UserCredential> signInGoogle(AfterMethodMessage  afterMethodMessage, {GoogleSignIn googleSignInAux}) async {
     if (kIsWeb) {
       GoogleAuthProvider authProvider = GoogleAuthProvider();
 
@@ -49,7 +53,13 @@ class AuthController {
         afterMethodMessage.onFail();
       }
     } else {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
+      GoogleSignIn googleSignIn;
+
+      if(googleSignInAux != null){
+        googleSignIn = googleSignInAux;
+      }else {
+        googleSignIn = GoogleSignIn();
+      }
 
       final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
@@ -99,7 +109,6 @@ class AuthController {
   }
 
   signOut() async {
-    print(loginType);
     try{
       if(!kIsWeb){
         await signOutGoogle();
@@ -135,7 +144,7 @@ class AuthController {
       }
       await auth.signOut();
     } catch (e) {
-      //handle error
+      print(e);
     }
   }
 

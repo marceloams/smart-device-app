@@ -2,6 +2,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/widgets.dart';
 import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
@@ -178,15 +179,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: SizedBox(
-                      height: 800.0,
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: DeviceFirestoreController.devicesList.length,
-                        itemBuilder: (context, index) {
-                          return (DevicesTile(DeviceFirestoreController.devicesList[index], constraints.maxWidth));
-                        },
+                    child: Center(
+                      child: SizedBox(
+                        height: 800.0,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: DeviceFirestoreController.devicesList.length,
+                          itemBuilder: (context, index) {
+                            return DevicesTile(DeviceFirestoreController.devicesList[index], constraints.maxWidth);
+                          },
+                        ),
                       ),
                     ),
                   ),

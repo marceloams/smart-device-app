@@ -35,7 +35,7 @@ class DevicesTile extends StatelessWidget {
                         ),
                         textAlign: TextAlign.center,
                       ),
-                      left: 0.0,
+                      left: displaySize < 760 ? 0.0 : 15.0,
                       top: 12.5
                   ),
                   displaySize < 760 ?
@@ -91,13 +91,16 @@ class DevicesTile extends StatelessWidget {
                 Divider(color: Colors.black),
                 Row(
                   children: [
-                    Text(
-                      "Measures",
-                      style: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 25.0,
+                    Padding(
+                      padding: EdgeInsets.only(left: 15.0),
+                      child: Text(
+                        "Measures",
+                        style: TextStyle(
+                            fontWeight: FontWeight.w300,
+                            fontSize: 25.0
+                        ),
+                        textAlign: TextAlign.left,
                       ),
-                      textAlign: TextAlign.left,
                     )
                   ],
                 )

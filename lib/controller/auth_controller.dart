@@ -63,6 +63,8 @@ class AuthController {
 
       final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
 
+      if(googleSignInAccount == null) return null;
+
       if (googleSignInAccount != null) {
         final GoogleSignInAuthentication googleSignInAuthentication = await googleSignInAccount.authentication;
 
@@ -95,6 +97,8 @@ class AuthController {
         // Trigger the sign-in flow
         final LoginResult result = await FacebookAuth.instance.login();
 
+        if(result.accessToken == null) return null;
+
         // Create a credential from the access token
         final facebookAuthCredential = FacebookAuthProvider.credential(result.accessToken.token);
 
@@ -103,6 +107,7 @@ class AuthController {
         // Once signed in, return the UserCredential
         return await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
       } catch (e) {
+        print(e);
         afterMethodMessage.onFail();
       }
       return null;

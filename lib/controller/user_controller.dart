@@ -62,6 +62,8 @@ class UserController {
     } else {
       userCredential = await authController.signInGoogle(afterMethodMessage, googleSignInAux: googleSignIn);
     }
+    if(userCredential==null) return;
+
     userFirebase = userCredential.user;
 
     Map<String, dynamic> userMap = {
@@ -76,6 +78,7 @@ class UserController {
 
   signInFacebook(AfterMethodMessage afterMethodMessage) async {
     userCredential = await authController.signInFacebook(afterMethodMessage);
+    if(userCredential == null) return;
     userFirebase = userCredential.user;
 
     Map<String, dynamic> userMap = {

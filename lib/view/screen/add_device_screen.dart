@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
+import 'package:realtimedatabase_teste/controller/web_device_controller.dart';
+import 'package:realtimedatabase_teste/controller/web_realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/view/alert/request_pop_alert.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -54,7 +55,8 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
     DatabaseController dbController = DatabaseController();
     DeviceController deviceController = DeviceController(dbController);
     UserController userController = UserController();
-    DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
+    WebDatabaseController webDbController = WebDatabaseController();
+    WebDeviceController webDeviceController = WebDeviceController(webDbController);
 
     RequestPopAlert requestPopAlert = RequestPopAlert(context, _deviceEdited, 'device');
 
@@ -88,7 +90,7 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
               userController.addDevice(id);
 
               //while firebase_database does not support web version
-              deviceFirestoreController.addDevice(deviceData, afterMethodMessage);
+              webDeviceController.addDevice(deviceData, afterMethodMessage);
               if(!kIsWeb)
                 deviceController.addDevice(deviceData, afterMethodMessage);
             }

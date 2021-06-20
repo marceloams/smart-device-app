@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics.dart';
@@ -14,8 +13,6 @@ class DeviceController with ChangeNotifier {
     DevicesCharacteristics devicesCharacteristics = DevicesCharacteristics();
 
     static List<DeviceData> devices = [];
-
-    DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
 
     int getDevicesLength(){
         return devices.length;

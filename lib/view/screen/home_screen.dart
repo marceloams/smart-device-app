@@ -3,15 +3,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
-import 'package:realtimedatabase_teste/controller/device_firestore_controller.dart';
 import 'package:realtimedatabase_teste/controller/realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/controller/device_controller.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
+import 'package:realtimedatabase_teste/controller/web_device_controller.dart';
+import 'package:realtimedatabase_teste/controller/web_realtime_database_controller.dart';
 import 'package:realtimedatabase_teste/view/screen/add_device_screen.dart';
 import 'package:realtimedatabase_teste/view/screen/profile_screen.dart';
 import 'package:realtimedatabase_teste/view/tile/devices_tile.dart';
 import 'signIn_screen.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:firebase/src/database.dart' as webDatabase;
 
 class HomeScreen extends StatefulWidget {
 
@@ -25,33 +26,22 @@ class _HomeScreenState extends State<HomeScreen> {
   DatabaseController dbController = DatabaseController();
   DeviceController deviceController;
   UserController userController = UserController();
-  DeviceFirestoreController deviceFirestoreController = DeviceFirestoreController();
+  WebDeviceController webDeviceController;
+  WebDatabaseController webDatabaseController = WebDatabaseController();
+
 
   @override
   void initState() {
     super.initState();
     deviceController = DeviceController(dbController);
-    if(kIsWeb){
-      deviceFirestoreController.addListener(() => setState(() {}));
-      deviceFirestoreController.loadDevices();
-    } else {
-      deviceFirestoreController.addListener(() => setState(() {
-        if(DeviceFirestoreController.listAddDevicesToRealtimeDb.isNotEmpty)
-          DeviceFirestoreController.listAddDevicesToRealtimeDb.forEach((d) {
-            deviceController.addDeviceFromFirestore(d);
-          });
-      }));
-      deviceFirestoreController.loadDevicesFromFirestoreToRealtime();
-      deviceController.addListener(() {
-        deviceFirestoreController.loadMeasuresFromRealTimeToFirestore(DeviceController.devices, dbController);
-      });
-    }
+    webDeviceController = WebDeviceController(webDatabaseController);
   }
 
   @override
   Widget build(BuildContext context) {
 
     var dbReference = deviceController.dbController.databaseReference;
+    var webDbReference = webDeviceController.dbController.databaseReference;
 
     return Scaffold(
         appBar: AppBar(
@@ -157,44 +147,92 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ) :
-              (DeviceFirestoreController.devicesList.isEmpty) ?
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                      Icons.mood_bad,
-                      size: 400.0,
-                      color: Colors.red
-                  ),
-                  Text(
-                    "You don't have any device!",
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 80.0
-                    ),
-                  )
-                ],
-              ) :
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Center(
-                      child: SizedBox(
-                        height: 800.0,
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: DeviceFirestoreController.devicesList.length,
-                          itemBuilder: (context, index) {
-                            return DevicesTile(DeviceFirestoreController.devicesList[index], constraints.maxWidth);
-                          },
-                        ),
-                      ),
-                    ),
+                  StreamBuilder(
+                    stream: webDbReference.onValue,
+                    builder: (context, snap) {
+                      if (snap.hasData && !snap.hasError && snap.data.snapshot.val()!=null) {
+
+                        //taking the data snapshot.
+                        webDatabase.DataSnapshot snapshot = snap.data.snapshot;
+
+                        Map<dynamic, dynamic> item = {};
+                        Map<dynamic, dynamic> _list;
+                        //it gives all the documents in this list.
+                        _list=snapshot.val();
+                        //Now we're just checking if document is not null then add it to another map called "item".
+                        _list.forEach((key, value) {
+                          if(value != null && !value['reset'] && UserController.userData.devices.contains(value['id'])) //check if device has been reseted and if belongs to user
+                            item[key] = value;
+                        });
+
+                        //loading items to devices List
+                        webDeviceController.loadDevices(item);
+
+                        return item.isEmpty ?
+                        Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                    Icons.mood_bad,
+                                    size: 150,
+                                    color: Colors.red
+                                ),
+                                Text(
+                                  "You don't have any device!",
+                                  style: TextStyle(
+                                      color: Colors.red,
+                                      fontSize: 25
+                                  ),
+                                )
+                              ],
+                            ) //otherwise return a list of widgets.
+                        : Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30.0)
+                              ),
+                              height: 800.0,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                itemCount: WebDeviceController.devices.length,
+                                itemBuilder: (context, index) {
+                                  return (
+                                      DevicesTile(WebDeviceController.devices[index], 200)
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        } else {
+                          return  Center(child: CircularProgressIndicator());
+                        }
+                    },
                   ),
                 ],
               );
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Expanded(
+              //       child: Center(
+              //         child: SizedBox(
+              //           height: 800.0,
+              //           child: ListView.builder(
+              //             shrinkWrap: true,
+              //             scrollDirection: Axis.horizontal,
+              //             itemCount: DeviceFirestoreController.devicesList.length,
+              //             itemBuilder: (context, index) {
+              //               return DevicesTile(DeviceFirestoreController.devicesList[index], constraints.maxWidth);
+              //             },
+              //           ),
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // );
             },
           ),
         ),

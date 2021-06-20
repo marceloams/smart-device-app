@@ -45,6 +45,7 @@ dependencies:
   firebase_auth_mocks: ^0.7.0
   google_sign_in_mocks: ^0.2.1
   flutter_native_splash: ^1.1.8
+  firebase: ^9.0.1
 
 dev_dependencies:
   flutter_test:

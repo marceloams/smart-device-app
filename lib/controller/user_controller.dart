@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:realtimedatabase_teste/controller/auth_controller.dart';
 import 'package:realtimedatabase_teste/model/user/user_data.dart';
+import 'package:realtimedatabase_teste/view/screen/signIn_screen.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -91,7 +93,7 @@ class UserController {
     signUpSocialMedia(userMap: userMap);
   }
 
-  signOut() async {
+  Future<Null> signOut() async {
     await authController.signOut();
   }
 
@@ -134,7 +136,7 @@ class UserController {
     await firestore.collection('users').doc(userMap['id']).set(userMap); //save data on the firebase
   }
 
-  void updateUser({@required Map<String, dynamic> userMap, @required AfterMethodMessage afterMethodMessage}) async {
+  void updateUser({@required Map<String, dynamic> userMap, @required AfterMethodMessage afterMethodMessage, BuildContext context}) async {
     try{
       if(userMap['email'] != null) {
         userData.setFromMap(userMap);
@@ -143,6 +145,13 @@ class UserController {
         signOut();
         afterMethodMessage.methodMessage = 'update email. Please sign in again';
         afterMethodMessage.onSuccess();
+        Future.delayed(
+            Duration(milliseconds: 2500)
+        ).then((_){
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (_context) => SignInScreen())
+          );
+        });
       } else {
         userData.setFromMap(userMap);
         await firestore.collection('users').doc(userFirebase.uid).update(userMap);

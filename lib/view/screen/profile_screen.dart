@@ -7,6 +7,7 @@ import 'package:multiavatar/multiavatar.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/model/avatar/avatar_painter.dart';
 import 'package:realtimedatabase_teste/model/avatar/avatar_svg_wrapper.dart';
+import 'package:realtimedatabase_teste/view/screen/signIn_screen.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -90,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     'email': _emailController.text,
                     'avatar': _avatarController.text
                   };
-                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage);
+                  _userController.updateUser(userMap: userMap, afterMethodMessage: afterMethodMessage, context: context);
                 } else if(_edited){
                   userMap = {
                   'name': _nameController.text,

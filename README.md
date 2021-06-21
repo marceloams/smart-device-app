@@ -1,4 +1,4 @@
-<img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/header-readme.png">
+<img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/header-readme.png?raw=true">
 
 ---
 
@@ -8,11 +8,14 @@
 
 ## 📱 Aplicação 
 
-- Aplicativo mobile para manipulação e monitoramento de sensores modulares conectados à internet;
+- Aplicativo web e mobile para manipulação e monitoramento de sensores modulares conectados à internet;
 
-- A aplicação está dividida em duas partes: 
-  - Aplicativo Mobile (repositório atual);
-  - Software Embarcado ([outro repositório](https://github.com/marceloams/smart-device)).
+- A aplicação está dividida em três partes: 
+  - Aplicativo Mobile (branch master);
+  - Aplicativo Web (branch temporary-web-version);
+  - Software Embarcado ([outro repositório](https://github.com/marceloams/smart-device));
+
+- Versão web temporária enquanto algumas bibliotecas utilizadas não possuem portabilidade para a versão web do Flutter.
 
 ---
 
@@ -20,14 +23,14 @@
 
 #### O projeto possuí as seguintes funcionalidades:
 
-- [x] Adição de um dispositivo;
+- [x] Adição de dispositivo;
 - [x] Listagem dos dispositivos;
-- [x] Configuração de um dispositivo;
-- [x] Exclusão de um dispositivo;
+- [x] Configuração de dispositivo;
+- [x] Exclusão de dispositivo;
 - [x] Leitura em tempo real da medida de um dispositivo;
-- [x] Listagem das mediadas de um dsipositivo;
-- [ ] Cadastro de um usuário;
-- [ ] Configuração de um usuário.
+- [x] Listagem das medidas de um dispositivo;
+- [x] Cadastro de usuário;
+- [x] Configuração do usuário.
 
 ---
 
@@ -35,10 +38,8 @@
 
 #### O aplicativo possuí as seguintes telas:
 
-| **Adicionar Dispositivo** | **Listar Dispositivos** | **Configurar Dispositivo** | **Histórico de Medidas** |
-| :---: |:---:| :---:| :---:|
-|![marceloamsProductions](https://github.com/marceloams/smart-device/blob/master/assets/app1.png)|![marceloamsProductions](https://github.com/marceloams/smart-device/blob/master/assets/app2.png) | ![marceloamsProductions](https://github.com/marceloams/smart-device/blob/master/assets/app3.png) | ![marceloamsProductions](https://github.com/marceloams/smart-device/blob/master/assets/app4.png) |
-
+<img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/Screens-readme-user.png?raw=true">
+<img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/Screens-readme-device.png?raw=true">
 
 ---
 
@@ -61,7 +62,22 @@
 - <a href="https://pub.dev/packages/firebase_database" target="_blank">firebase_database</a>;
 - <a href="https://pub.dev/packages/firebase_core" target="_blank">firebase_core</a>;
 - <a href="https://pub.dev/packages/clipboard" target="_blank">clipboard</a>;
-- <a href="https://pub.dev/packages/mockito" target="_blank">mockito</a>.
+- <a href="https://pub.dev/packages/mockito" target="_blank">mockito</a>;
+- <a href="https://pub.dev/packages/flutter_launcher_icons" target="_blank">flutter_launcher_icons</a>;
+- <a href="https://pub.dev/packages/auth_buttons" target="_blank">auth_buttons</a>;
+- <a href="https://pub.dev/packages/firebase_auth" target="_blank">firebase_auth</a>;
+- <a href="https://pub.dev/packages/google_sign_in" target="_blank">google_sign_in</a>;
+- <a href="https://pub.dev/packages/flutter_facebook_auth" target="_blank">flutter_facebook</a>;
+- <a href="https://pub.dev/packages/firebase_storage" target="_blank">firebase_storage</a>;
+- <a href="https://pub.dev/packages/auth_buttons" target="_blank">auth_buttons</a>;
+- <a href="https://pub.dev/packages/cloud_firestore" target="_blank">cloud_firestore</a>;
+- <a href="https://pub.dev/packages/multiavatar" target="_blank">multiavatar</a>;
+- <a href="https://pub.dev/packages/flutter_svg" target="_blank">flutter_svg</a>;
+- <a href="https://pub.dev/packages/fake_cloud_firestore" target="_blank">fake_cloud_firestore</a>;
+- <a href="https://pub.dev/packages/firebase_auth_mocks" target="_blank">firebase_auth_mocks</a>;
+- <a href="https://pub.dev/packages/google_sign_in_mocks" target="_blank">google_sign_in_mocks</a>;
+- <a href="https://pub.dev/packages/flutter_native_splash" target="_blank">flutter_native_splash</a>;
+- <a href="https://pub.dev/packages/firebase" target="_blank">firebase (somente usada na versão web)</a>;
 
 ---
 
@@ -92,15 +108,21 @@ flutter doctor
 
 Caso algo deu errado, segue um [tutorial](https://www.treinaweb.com.br/blog/configurando-ambiente-de-desenvolvimento-flutter/) de como configurar o ambiente de desenvolvimento.
   
-### Passo 1
+### Via APK 💿
+
+ - <a href="https://github.com/marceloams/smart-device-app/releases/download/0.1/app-release.apk" target="_blank">Baixe o APK diretamente em seu dispositivo</a>
+
+### Via Código 💻
+
+#### Passo 1
 
   - 👯 Clonar o repositório.
 
-### Passo 2
+#### Passo 2
 
   - Abra o projeto e inicie o emulador ou conecte o seu dispositivo.
  
-### Passo 3
+#### Passo 3
 
 - No prompt de comando dentro do diretório do projeto, rode os seguintes comandos:
 
@@ -109,7 +131,7 @@ flutter pub get
 flutter run
 ```
 
- ### Passo 4 (Opcional)
+ #### Passo 4 (Opcional)
  
  - Por fim, se desejar, siga os passos citados no [repositório do software embarcado](https://github.com/marceloams/smart-device);
  
@@ -148,12 +170,12 @@ flutter run
 
  ---
  
- ## 👨‍💻 Autor
+ ## 👨‍💻 Autores
 
 
-| **Marcelo Amorim** |
-| :---: |
-| [![marceloamsProductions](https://avatars1.githubusercontent.com/u/63866348?&v=4&s=200)](https://github.com/marceloams) |
+| **Marcelo Amorim** | **Caio Souza** |
+| :---: | :---: |
+| [![SmartDeviceAppProductions](https://avatars1.githubusercontent.com/u/63866348?&v=4&s=200)](https://github.com/marceloams) | [![SmartDeviceAppProductions](https://avatars1.githubusercontent.com/u/21149887?&v=4&s=200)](https://github.com/CaioHpSouza) |
 
 ---
  

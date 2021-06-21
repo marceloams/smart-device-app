@@ -108,7 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         _list=snapshot.value;
                         //Now we're just checking if document is not null then add it to another map called "item".
                         _list.forEach((key, value) {
-                          if(value != null && !value['reset'] && UserController.userData.devices.contains(value['id'])) //check if device has been reseted and if belongs to user
+                          if(value != null && !value['reset'] && value['id'].toString().contains(UserController.userFirebase.uid)) //check if device has been reseted and if belongs to user
                             item[key] = value;
                         });
 

@@ -90,7 +90,20 @@
 
 ## ⚡ Como utilizar - passo a passo
 
-### Requisitos
+  
+### Via APK 💿
+
+#### Requisitos
+
+  - No mínimo Android 4.1 - Jelly Bean (API 16);
+
+#### Funcionamento
+
+ - <a href="https://github.com/marceloams/smart-device-app/releases/download/0.1/app-release.apk" target="_blank">Baixe o APK diretamente em seu dispositivo</a>
+
+### Via Código 💻
+
+#### Requisitos
 
   - Flutter SDK;
   - Android Studio ou Visual Studio Code;
@@ -98,7 +111,7 @@
   - Java JDK;
   - Um emulador ou um dispositivo para testar a aplicação.
  
-### Verificação 
+#### Verificação 
 
 Rode a seguinte linha de código no prompt de comando:
 
@@ -107,12 +120,6 @@ flutter doctor
 ```
 
 Caso algo deu errado, segue um [tutorial](https://www.treinaweb.com.br/blog/configurando-ambiente-de-desenvolvimento-flutter/) de como configurar o ambiente de desenvolvimento.
-  
-### Via APK 💿
-
- - <a href="https://github.com/marceloams/smart-device-app/releases/download/0.1/app-release.apk" target="_blank">Baixe o APK diretamente em seu dispositivo</a>
-
-### Via Código 💻
 
 #### Passo 1
 

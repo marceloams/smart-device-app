@@ -16,12 +16,22 @@ class MeasuresTile extends StatelessWidget {
           image: AssetImage(measure.measuresImages[index]),
           height: 50.0,
         ),
-        Text(
-          measure.measures[index].toString(),
-          style: TextStyle(
-              fontSize: 25.0
+        SizedBox(width: 5.0),
+        measure.measures[index] is bool ?
+          Container(
+            width: 35.0,
+            height: 35.0,
+            decoration: new BoxDecoration(
+              color: measure.measures[index] ? Colors.green : Colors.red,
+              shape: BoxShape.circle,
+            ),
+          ) :
+          Text(
+            measure.measures[index].toString(),
+            style: TextStyle(
+                fontSize: 25.0
+            ),
           ),
-        ),
         Text(
             measure.units[index]
         )

@@ -32,7 +32,8 @@ class _AddDeviceScreenState extends State<AddDeviceScreen> {
     List<DropdownMenuItem> items = [];
     Map<String, int> information = {
       'Temperature Sensor': 0,
-      'Presence Sensor': 1
+      'Presence Sensor': 1,
+      'Gas Sensor': 2
     };
 
     information.forEach((key, value) {

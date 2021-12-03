@@ -49,6 +49,7 @@ main(){
                 'temperature': 0,
                 'humidity': 0,
                 'presence': false,
+                'gas': false,
                 'timestamp': '2020-06-23 12:30:00'
               }
             }

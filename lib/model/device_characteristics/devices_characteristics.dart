@@ -1,5 +1,6 @@
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/device/dht11_sensor.dart';
+import 'package:realtimedatabase_teste/model/device/gas_sensor.dart';
 import 'package:realtimedatabase_teste/model/device/presence_sensor.dart';
 import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics_base.dart';
 
@@ -22,6 +23,11 @@ class DevicesCharacteristics extends DevicesCharacteristicsBase{
         'instance': PresenceSensor(),
         'name': 'Presence Sensor',
         'measures-types': ['Presence']
+      },
+      {
+        'instance': GasSensor(),
+        'name': 'Gas Sensor',
+        'measures-types': ['Gas']
       }
     ];
 
@@ -31,6 +37,7 @@ class DevicesCharacteristics extends DevicesCharacteristicsBase{
   void _resetInstances(){
     stateList[0]['instance'] = Dht11Sensor();
     stateList[1]['instance'] = PresenceSensor();
+    stateList[2]['instance'] = GasSensor();
   }
 
   DeviceData getDeviceInstance(int type){

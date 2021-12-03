@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:realtimedatabase_teste/controller/user_controller.dart';
 import 'package:realtimedatabase_teste/model/device/device_data.dart';
 import 'package:realtimedatabase_teste/model/device_characteristics/devices_characteristics.dart';
-import 'package:realtimedatabase_teste/model/measure/measure_data.dart';
 import 'package:realtimedatabase_teste/view/widget/afterMethodMessage.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -43,6 +42,7 @@ class DeviceFirestoreController with ChangeNotifier {
           'temperature': 0,
           'humidity': 0,
           'presence': false,
+          'gas': false,
           'timestamp': '2020-06-23 12:30:00'
         }
       };

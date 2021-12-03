@@ -99,7 +99,7 @@
 
 #### Funcionamento
 
- - <a href="https://github.com/marceloams/smart-device-app/releases/download/0.1/app-release.apk" target="_blank">Baixe o APK diretamente em seu dispositivo</a>
+ - <a href="https://hub.docker.com/repository/docker/marceloams/smart-devices-api" target="_blank">Baixe o APK diretamente em seu dispositivo</a>
 
 ### Via Código 💻
 

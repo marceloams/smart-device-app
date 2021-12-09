@@ -8,12 +8,15 @@
 
 ## 📱 Aplicação 
 
+- Parte do projeto Smart Device;
+
+- É para ser usado em conjunto com a [biblioteca para o microcontrolador ESP8266](https://github.com/marceloams/smart-device-library) e a [API](https://hub.docker.com/repository/docker/marceloams/smart-devices-api);
+
 - Aplicativo web e mobile para manipulação e monitoramento de sensores modulares conectados à internet;
 
-- A aplicação está dividida em três partes: 
+- A aplicação está dividida em duas partes: 
   - Aplicativo Mobile (branch master);
   - Aplicativo Web (branch temporary-web-version);
-  - Software Embarcado ([outro repositório](https://github.com/marceloams/smart-device));
 
 - Versão web temporária enquanto algumas bibliotecas utilizadas não possuem portabilidade para a versão web do Flutter.
 
@@ -36,7 +39,7 @@
 
 ## 📲 Telas do aplicativo
 
-#### O aplicativo possuí as seguintes telas:
+#### O aplicativo possui as seguintes telas:
 
 <img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/Screens-readme-user.png?raw=true">
 <img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/Screens-readme-device.png?raw=true">

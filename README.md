@@ -2,53 +2,53 @@
 
 ---
 
-# Smart Device App [![Build Status](https://travis-ci.com/marceloams/smart-device-app.svg?branch=master)](https://travis-ci.com/marceloams/smart-device-app)
+# Smart Device App [![Build Status](https://travis-ci.com/marceloams/smart-device-app.svg?branch=master)](https://travis-ci.com/marceloams/smart-device-app) [![pt-br](https://img.shields.io/badge/lang-pt--br-green.svg)](https://github.com/marceloams/smart-device-app/blob/master/README.pt-br.md)
 
 ---
 
-## 📱 Aplicação 
+## 📱 Application 
 
-- Parte do projeto Smart Device;
+- Part of the Smart Device Project;
 
-- É para ser usado em conjunto com a [biblioteca para o microcontrolador ESP8266](https://github.com/marceloams/smart-device-library) e a [API](https://hub.docker.com/repository/docker/marceloams/smart-devices-api);
+- It is mean to be used with [library for ESP8266 microcontroller](https://github.com/marceloams/smart-device-library) and [API](https://hub.docker.com/repository/docker/marceloams/smart-devices-api);
 
-- Aplicativo web e mobile para manipulação e monitoramento de sensores modulares conectados à internet;
+- Mobile and Web application for monitoring and manage modular sensors connected to the internet; 
 
-- A aplicação está dividida em duas partes: 
-  - Aplicativo Mobile (branch master);
-  - Aplicativo Web (branch temporary-web-version);
+- The app is divided in two parts: 
+  - Mobile App (branch master);
+  - Web App (branch temporary-web-version);
 
-- Versão web temporária enquanto algumas bibliotecas utilizadas não possuem portabilidade para a versão web do Flutter.
-
----
-
-## 📝 Funcionalidades 
-
-#### O projeto possuí as seguintes funcionalidades:
-
-- [x] Adição de dispositivo;
-- [x] Listagem dos dispositivos;
-- [x] Configuração de dispositivo;
-- [x] Exclusão de dispositivo;
-- [x] Leitura em tempo real da medida de um dispositivo;
-- [x] Listagem das medidas de um dispositivo;
-- [x] Cadastro de usuário;
-- [x] Configuração do usuário.
+- Temporary web version (at the time, Flutter 2.0 had just been released and some libraries didn't have support for Flutter Web).
 
 ---
 
-## 📲 Telas do aplicativo
+## 📝 Features 
 
-#### O aplicativo possui as seguintes telas:
+#### The project has the following features:
+
+- [x] Add devices;
+- [x] List devices;
+- [x] Devices settings;
+- [x] Delete devices;
+- [x] Real time reading of the device's measurements;
+- [x] List of the measurements;
+- [x] User registration;
+- [x] User seetings.
+
+---
+
+## 📲 App Screens
+
+#### The application has the following screens:
 
 <img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/Screens-readme-user.png?raw=true">
 <img src="https://github.com/marceloams/smart-device-app/blob/master/assets/images/readme/Screens-readme-device.png?raw=true">
 
 ---
 
-## 🛠️ Ferramentas 
+## 🛠️ Tools 
 
-#### Foram utilizadas as seguintes ferramentas no desenvolvimento do projeto:
+#### The following tools were used in the development of the project:
 
 [![marceloamsProductions](http://img.shields.io/badge/-Dart-0175C2?style=flat&logo=Dart&logoColor=white)](https://dart.dev/)
 [![marceloamsProductions](https://img.shields.io/badge/-Flutter-3a495d?style=flat&logo=flutter&logoColor=67b7f7)](http://flutter.dev)
@@ -58,9 +58,9 @@
 
 ---
 
-## 📚 Bibliotecas 
+## 📚 Libraries 
 
-#### Foram utilizadas as seguintes bibliotecas no desenvolvimento do projeto:
+#### The following libraries were used in the development of the project:
 
 - <a href="https://pub.dev/packages/firebase_database" target="_blank">firebase_database</a>;
 - <a href="https://pub.dev/packages/firebase_core" target="_blank">firebase_core</a>;
@@ -80,107 +80,111 @@
 - <a href="https://pub.dev/packages/firebase_auth_mocks" target="_blank">firebase_auth_mocks</a>;
 - <a href="https://pub.dev/packages/google_sign_in_mocks" target="_blank">google_sign_in_mocks</a>;
 - <a href="https://pub.dev/packages/flutter_native_splash" target="_blank">flutter_native_splash</a>;
-- <a href="https://pub.dev/packages/firebase" target="_blank">firebase (somente usada na versão web)</a>;
+- <a href="https://pub.dev/packages/firebase" target="_blank">firebase (only used in the web version)</a>;
 
 ---
 
-## 📁 Organização do repositório
+## 📁 Repository structure
 
-- <a href="https://github.com/marceloams/smart-device-app/tree/master/lib" target="_blank">Códigos de produção</a>;
-- <a href="https://github.com/marceloams/smart-device-app/tree/master/test" target="_blank">Códigos de teste</a>.
+- <a href="https://github.com/marceloams/smart-device-app/tree/master/lib" target="_blank">Production codes</a>;
+- <a href="https://github.com/marceloams/smart-device-app/tree/master/test" target="_blank">Test codes</a>.
 
 ---
 
-## ⚡ Como utilizar - passo a passo
+## ⚡ How to use - step by step
 
   
 ### Via APK 💿
 
-#### Requisitos
+#### Requirements
 
-  - No mínimo Android 4.1 - Jelly Bean (API 16);
+  - At least Android 4.1 - Jelly Bean (API 16);
 
-#### Funcionamento
+#### Operation
 
- - <a href="https://github.com/marceloams/smart-device-app/releases/download/0.1/app-release.apk" target="_blank">Baixe o APK diretamente em seu dispositivo</a>
+ - <a href="https://github.com/marceloams/smart-device-app/releases/download/0.1/app-release.apk" target="_blank">Download the APK into your device</a>
 
-### Via Código 💻
+### Via Code 💻
 
-#### Requisitos
+#### Requirements
 
   - Flutter SDK;
-  - Android Studio ou Visual Studio Code;
+  - Android Studio or Visual Studio Code;
   - Android SDK;
   - Java JDK;
-  - Um emulador ou um dispositivo para testar a aplicação.
+  - An emulator or a device to test the application.
  
-#### Verificação 
+#### Test your enviroment 
 
-Rode a seguinte linha de código no prompt de comando:
+Run the following command at the command prompt:
 
 ```
 flutter doctor
 ```
 
-Caso algo deu errado, segue um [tutorial](https://www.treinaweb.com.br/blog/configurando-ambiente-de-desenvolvimento-flutter/) de como configurar o ambiente de desenvolvimento.
+If something went wrong, here is a [tutorial](https://medium.com/@sahaj.blup/flutter-development-environment-setup-a-step-by-step-guide-5e457583bc4d) on how to configure the development environment.
 
-#### Passo 1
+### Step 1
 
-  - 👯 Clonar o repositório.
+- **Option 1**
+    - 🍴 Fork this repository!
 
-#### Passo 2
+- **Option 2**
+    - 👯 Clone to your machine.
 
-  - Abra o projeto e inicie o emulador ou conecte o seu dispositivo.
+#### Step 2
+
+  - Open the project and launch the emulator or connect your device.
  
-#### Passo 3
+#### Step 3
 
-- No prompt de comando dentro do diretório do projeto, rode os seguintes comandos:
+- At the command prompt within the project directory, run the following commands:
 
 ```
 flutter pub get
 flutter run
 ```
 
- #### Passo 4 (Opcional)
+ #### Step 4 (Opcional)
  
- - Por fim, se desejar, siga os passos citados no [repositório do software embarcado](https://github.com/marceloams/smart-device);
+ - Finally, if you wish, follow the steps mentioned in the [library for ESP8266 microcontroller](https://github.com/marceloams/smart-device-library) and [API](https://hub.docker.com/repository/docker/marceloams/smart-devices-api)
  
 ---
  
-✔️ Se seguiu os passos e obteve sucesso é sinal que funcionou!
+✔️ If you've followed the steps and were successful, it's a sign that it worked!
 <br>
 <br>
 <img src="https://media.giphy.com/media/nDSlfqf0gn5g4/giphy.gif">
 <br>
 <br>
-❌ Se algum dos passos não funcionou, algo de errado não está certo! (Faça um issue)
+❌ If any of the steps didn't work, something wrong isn't right! (Make an issue)
 <br>
 <br>
 <img src="https://media.giphy.com/media/wofftnAdDtx4s/giphy.gif">
 
 ---
 
-## 🔨 Contribuição
+## 🔨 Contribution
 
-### Passo 1
+### Step 1
 
-- **Opção 1**
-    - 🍴 Forkar esse repositório!
+- **Option 1**
+     - 🍴 Fork this repository!
 
-- **Opção 2**
-    - 👯 Clonar para sua maquina atual.
+- **Option 2**
+     - 👯 Clone to your current machine.
 
-### Passo 2
+### Step 2
 
-- **Codar!** 👨‍💻👩‍💻
+- **Coding!** 👨‍💻👩‍💻
 
-### Passo 3
+### Step 3
 
-- 🔃 Crie um novo pull request.
+- 🔃 Create a new pull request.
 
- ---
+  ---
  
- ## 👨‍💻 Autores
+  ## 👨‍💻 Authors
 
 
 | **Marcelo Amorim** | **Caio Souza** |
@@ -189,7 +193,7 @@ flutter run
 
 ---
  
- ## ©️ Licença
+ ## ©️ License
 
 [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
